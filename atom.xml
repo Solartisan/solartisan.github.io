@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-05-14T03:14:05.000Z</updated>
+  <updated>2016-05-14T04:01:15.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -16,11 +16,84 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android代码规范</title>
+    <link href="http://solart.cc/2016/05/14/code-specification/"/>
+    <id>http://solart.cc/2016/05/14/code-specification/</id>
+    <published>2016-05-14T03:19:20.000Z</published>
+    <updated>2016-05-14T04:01:15.000Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot; title=&quot;一、概述&quot;&gt;&lt;/a&gt;一、概述&lt;/h1&gt;&lt;p&gt;本文档主要用于帮助Android开发人员规范代码及资源文件命名等，使大家尽量保证一个整洁的编程风格。&lt;/p&gt;
+&lt;h1 id=&quot;二、Java命名规范&quot;&gt;&lt;a href=&quot;#二、Java命名规范&quot; class=&quot;headerlink&quot; title=&quot;二、Java命名规范&quot;&gt;&lt;/a&gt;二、Java命名规范&lt;/h1&gt;&lt;p&gt;本命名规范主要基于&lt;code&gt;骆驼命名&lt;/code&gt;规则(对于这个都保证不了的代码简直不能忍)。&lt;/p&gt;
+&lt;h2 id=&quot;2-1-不要使用拼音命，避免使用缩写&quot;&gt;&lt;a href=&quot;#2-1-不要使用拼音命，避免使用缩写&quot; class=&quot;headerlink&quot; title=&quot;2.1 不要使用拼音命，避免使用缩写&quot;&gt;&lt;/a&gt;2.1 不要使用拼音命，避免使用缩写&lt;/h2&gt;&lt;p&gt;# 所有的名称命名应该&lt;code&gt;简洁而富有意义&lt;/code&gt;，尽量使用完整单词。增加必要的注释。&lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;除非该缩写被更广泛的使用&lt;/code&gt;，例如URL、HTML。&lt;/p&gt;
+&lt;h2 id=&quot;2-2-包的命名&quot;&gt;&lt;a href=&quot;#2-2-包的命名&quot; class=&quot;headerlink&quot; title=&quot;2.2 包的命名&quot;&gt;&lt;/a&gt;2.2 包的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;包名由小写的字母组成&lt;/code&gt;，例如以 cc.solart.&amp;lt;业务模块名&amp;gt;.&amp;lt;子模块名&amp;gt;命名&lt;/p&gt;
+&lt;p&gt;# 一个模块是一个功能相对独立的模块，&lt;code&gt;应谨慎创建新的模块名&lt;/code&gt; &lt;/p&gt;
+&lt;h2 id=&quot;2-3-类的命名&quot;&gt;&lt;a href=&quot;#2-3-类的命名&quot; class=&quot;headerlink&quot; title=&quot;2.3 类的命名&quot;&gt;&lt;/a&gt;2.3 类的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;类名的首字母必须大写&lt;/code&gt;，如果由多个单词组成，多个单词直接连接，&lt;code&gt;每个单词的首字母必须大写，其他字母小写&lt;/code&gt;。例如：public class LoginActivity &lt;/p&gt;
+&lt;p&gt;# 类的域定义考量, 非公开类不要用public&lt;code&gt;(注意类的有效作用域)&lt;/code&gt; &lt;/p&gt;
+&lt;h2 id=&quot;2-4-抽象类、接口的命名&quot;&gt;&lt;a href=&quot;#2-4-抽象类、接口的命名&quot; class=&quot;headerlink&quot; title=&quot;2.4 抽象类、接口的命名&quot;&gt;&lt;/a&gt;2.4 抽象类、接口的命名&lt;/h2&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;# 对于抽象类，&lt;code&gt;职责比较单一的以Abs开头&lt;/code&gt;，例如:AbsJsonRequest，只包含单一的网络请求；&lt;code&gt;对于一些基类抽象封装一般采用Base开头&lt;/code&gt;，例如BaseActivity。&lt;/p&gt;
+&lt;p&gt;# 对于有明显接口特征的接口(如后缀含有Listener/Observer)，参考类命名规范即可，例如：public interface ResponseListener。&lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;对于没有明显接口特征的接口命名，首字母统一为大写 I&lt;/code&gt;，其它单词首字母大写, 例如:public interface ILocation。&lt;/p&gt;
+&lt;h2 id=&quot;2-5-方法及参数的命名&quot;&gt;&lt;a href=&quot;#2-5-方法及参数的命名&quot; class=&quot;headerlink&quot; title=&quot;2.5 方法及参数的命名&quot;&gt;&lt;/a&gt;2.5 方法及参数的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;方法名的首字母必须小写&lt;/code&gt;，遵循驼峰命名。public void checkAuthToken()&lt;/p&gt;
+&lt;p&gt;# 方法参数名以该参数功能命名，格式同方法名命名规则相同。 public void checkAuthToken(String token)&lt;/p&gt;
+&lt;h2 id=&quot;2-6-常量的命名&quot;&gt;&lt;a href=&quot;#2-6-常量的命名&quot; class=&quot;headerlink&quot; title=&quot;2.6 常量的命名&quot;&gt;&lt;/a&gt;2.6 常量的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;用 final static 修饰，名称都大写&lt;/code&gt;，多个单词以下划线 “_” 连接，如:public final static String HTTP_HOST = “&lt;a href=&quot;http://127.0.0.1:8080/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://127.0.0.1:8080/&lt;/a&gt;“; 。&lt;/p&gt;
+&lt;h2 id=&quot;2-7-变量的命名&quot;&gt;&lt;a href=&quot;#2-7-变量的命名&quot; class=&quot;headerlink&quot; title=&quot;2.7 变量的命名&quot;&gt;&lt;/a&gt;2.7 变量的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;非 static 的成员变量，命名必须写&amp;#39;m&amp;#39;前缀&lt;/code&gt;，如：public Handler mHandler; &lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;static修饰的成员变量，命名必须写&amp;#39;s&amp;#39;前缀&lt;/code&gt;，如：public static String sAppKey; &lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;枚举变量使用用&amp;#39;e&amp;#39;前缀&lt;/code&gt;，如 private Weekday eWeekday;&lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;局部变量命名首字母小写即可&lt;/code&gt;，采用驼峰命名，如Context context;  &lt;/p&gt;
+&lt;h1 id=&quot;三、Android资源文件命名规则&quot;&gt;&lt;a href=&quot;#三、Android资源文件命名规则&quot; class=&quot;headerlink&quot; title=&quot;三、Android资源文件命名规则&quot;&gt;&lt;/a&gt;三、Android资源文件命名规则&lt;/h1&gt;&lt;p&gt;规范资源文件命名，统一风格。&lt;/p&gt;
+&lt;h2 id=&quot;3-1-文件命名&quot;&gt;&lt;a href=&quot;#3-1-文件命名&quot; class=&quot;headerlink&quot; title=&quot;3.1 文件命名&quot;&gt;&lt;/a&gt;3.1 文件命名&lt;/h2&gt;&lt;p&gt;# res/layout目录下文件:&lt;br&gt;统一以布局类型开头，用小写和下划线”_”组合命名，如：首页 xml 布局文件: 例如:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;activity_home.xml &lt;span class=&quot;comment&quot;&gt;# HomeActivity页面布局&lt;/span&gt;
+ fragment_account.xml &lt;span class=&quot;comment&quot;&gt;# AccountFragment布局&lt;/span&gt;
+ item_tips.xml &lt;span class=&quot;comment&quot;&gt;# Adapter item布局&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;# res/drawable目录下文件: 统一用小写加下划线”_”组合命名，同上，每个资源文件加前缀以便区分用途。如:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#13;bg_selector_normal.xml&amp;#10;&amp;#13;icon_submit_default.png&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;3-2-资源ID命名&quot;&gt;&lt;a href=&quot;#3-2-资源ID命名&quot; class=&quot;headerlink&quot; title=&quot;3.2 资源ID命名&quot;&gt;&lt;/a&gt;3.2 资源ID命名&lt;/h2&gt;&lt;p&gt;# @id/@+id 名称的必须全部小写，单词之间用下划线隔开，名称不需要复杂的层级定位，只要准确描述所代表控件的功能作用即可，在名称使用当前控件类型的缩写作为前缀。例如：@+id/tv_name。&lt;/p&gt;
+&lt;p&gt;# res/color目录下文件: 统一用小写加下划线”_“组合命名，定义通用的背景色bg_color；定义字体通用色值，其他颜色统一用app_&amp;lt;色值&amp;gt;表示。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--载体颜色--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;bg_color&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#E5E5E5&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;    
+ &lt;span class=&quot;comment&quot;&gt;&amp;lt;!--Material design color--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;comment&quot;&gt;&amp;lt;!--正常字体87%透明黑色--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;font_color_normal_black_87&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#DD000000&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;comment&quot;&gt;&amp;lt;!--正常字体54%透明黑色--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;font_color_light_black_54&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#89000000&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;comment&quot;&gt;&amp;lt;!--不可用状态使用的颜色26%透明--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;font_color_enable_black_26&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#42000000&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+
+ &lt;span class=&quot;comment&quot;&gt;&amp;lt;!--其他非通用色值 采用app_&amp;lt;小写色值编码&amp;gt;命名即可，value色值字母大写--&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;app_d2322a&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#FFD2322A&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;app_f36754&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#FFF36754&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;name&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;app_d4503e&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;#FFD4503E&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;color&lt;/span&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;四、编码风格&quot;&gt;&lt;a href=&quot;#四、编码风格&quot; class=&quot;headerlink&quot; title=&quot;四、编码风格&quot;&gt;&lt;/a&gt;四、编码风格&lt;/h1&gt;&lt;h2 id=&quot;4-1-一般性说明&quot;&gt;&lt;a href=&quot;#4-1-一般性说明&quot; class=&quot;headerlink&quot; title=&quot;4.1 一般性说明&quot;&gt;&lt;/a&gt;4.1 一般性说明&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;方法体行数不得超过 40 行&lt;/code&gt;(一般来说40行绝对够用，且易于维护)；&lt;br&gt;# 除去缩进长度，&lt;code&gt;单行长度不得超过 100 个字符&lt;/code&gt;；&lt;br&gt;# &lt;code&gt;圈复杂度不能超过 2 层&lt;/code&gt;；&lt;br&gt;# 单个文件长度一般不超过 1500 行(第三方代码除外)；&lt;br&gt;# 公开 API 中所有参数都必须进行有效性验证；&lt;br&gt;# 每次代码提交之前必须删除大量无效代码，去除无用的类import；&lt;br&gt;# &lt;code&gt;使用第三方API增加异常捕获&lt;/code&gt;，降低使用风险；try { … }catch(Exception e) { … }&lt;br&gt;# 除作者信息外之外，代码其他处不可出现其他个人信息。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;一、概述&quot;&gt;&lt;a href=&quot;#一、概述&quot; class=&quot;headerlink&quot; title=&quot;一、概述&quot;&gt;&lt;/a&gt;一、概述&lt;/h1&gt;&lt;p&gt;本文档主要用于帮助Android开发人员规范代码及资源文件命名等，使大家尽量保证一个整洁的编程风格。&lt;/p&gt;
+&lt;h1 id=&quot;二、Java命名规范&quot;&gt;&lt;a href=&quot;#二、Java命名规范&quot; class=&quot;headerlink&quot; title=&quot;二、Java命名规范&quot;&gt;&lt;/a&gt;二、Java命名规范&lt;/h1&gt;&lt;p&gt;本命名规范主要基于&lt;code&gt;骆驼命名&lt;/code&gt;规则(对于这个都保证不了的代码简直不能忍)。&lt;/p&gt;
+&lt;h2 id=&quot;2-1-不要使用拼音命，避免使用缩写&quot;&gt;&lt;a href=&quot;#2-1-不要使用拼音命，避免使用缩写&quot; class=&quot;headerlink&quot; title=&quot;2.1 不要使用拼音命，避免使用缩写&quot;&gt;&lt;/a&gt;2.1 不要使用拼音命，避免使用缩写&lt;/h2&gt;&lt;p&gt;# 所有的名称命名应该&lt;code&gt;简洁而富有意义&lt;/code&gt;，尽量使用完整单词。增加必要的注释。&lt;/p&gt;
+&lt;p&gt;# &lt;code&gt;除非该缩写被更广泛的使用&lt;/code&gt;，例如URL、HTML。&lt;/p&gt;
+&lt;h2 id=&quot;2-2-包的命名&quot;&gt;&lt;a href=&quot;#2-2-包的命名&quot; class=&quot;headerlink&quot; title=&quot;2.2 包的命名&quot;&gt;&lt;/a&gt;2.2 包的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;包名由小写的字母组成&lt;/code&gt;，例如以 cc.solart.&amp;lt;业务模块名&amp;gt;.&amp;lt;子模块名&amp;gt;命名&lt;/p&gt;
+&lt;p&gt;# 一个模块是一个功能相对独立的模块，&lt;code&gt;应谨慎创建新的模块名&lt;/code&gt; &lt;/p&gt;
+&lt;h2 id=&quot;2-3-类的命名&quot;&gt;&lt;a href=&quot;#2-3-类的命名&quot; class=&quot;headerlink&quot; title=&quot;2.3 类的命名&quot;&gt;&lt;/a&gt;2.3 类的命名&lt;/h2&gt;&lt;p&gt;# &lt;code&gt;类名的首字母必须大写&lt;/code&gt;，如果由多个单词组成，多个单词直接连接，&lt;code&gt;每个单词的首字母必须大写，其他字母小写&lt;/code&gt;。例如：public class LoginActivity &lt;/p&gt;
+&lt;p&gt;# 类的域定义考量, 非公开类不要用public&lt;code&gt;(注意类的有效作用域)&lt;/code&gt; &lt;/p&gt;
+&lt;h2 id=&quot;2-4-抽象类、接口的命名&quot;&gt;&lt;a href=&quot;#2-4-抽象类、接口的命名&quot; class=&quot;headerlink&quot; title=&quot;2.4 抽象类、接口的命名&quot;&gt;&lt;/a&gt;2.4 抽象类、接口的命名&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="Android" scheme="http://solart.cc/categories/Android/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>Android WebView加载html5及JS交互框架</title>
     <link href="http://solart.cc/2016/03/25/open-web/"/>
     <id>http://solart.cc/2016/03/25/open-web/</id>
     <published>2016-03-25T08:06:04.000Z</published>
-    <updated>2016-05-14T03:14:05.000Z</updated>
+    <updated>2016-05-14T03:16:38.000Z</updated>
     
     <content type="html">&lt;p&gt;当前越来越多的app中嵌入H5，想跟大家分享一下具体在项目中的使用和设计，故写了这个&lt;a href=&quot;https://github.com/Solartisan/OpenWeb&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;开源项目&lt;/a&gt;，欢迎大家批评指正。&lt;/p&gt;
 &lt;p&gt;在这里介绍一下OpenWeb项目基础的框架设计。&lt;/p&gt;

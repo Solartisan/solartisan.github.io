@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Android代码规范 · Solartisan</title><meta name="description" content="Android代码规范 - imilk"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Android代码规范</h1><div class="post-time">May 14, 2016</div><div class="post-content"><h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>本文档主要用于帮助Android开发人员规范代码及资源文件命名等，使大家尽量保证一个整洁的编程风格。</p>
+<h1 id="二、Java命名规范"><a href="#二、Java命名规范" class="headerlink" title="二、Java命名规范"></a>二、Java命名规范</h1><p>本命名规范主要基于<code>骆驼命名</code>规则(对于这个都保证不了的代码简直不能忍)。</p>
+<h2 id="2-1-不要使用拼音命，避免使用缩写"><a href="#2-1-不要使用拼音命，避免使用缩写" class="headerlink" title="2.1 不要使用拼音命，避免使用缩写"></a>2.1 不要使用拼音命，避免使用缩写</h2><p># 所有的名称命名应该<code>简洁而富有意义</code>，尽量使用完整单词。增加必要的注释。</p>
+<p># <code>除非该缩写被更广泛的使用</code>，例如URL、HTML。</p>
+<h2 id="2-2-包的命名"><a href="#2-2-包的命名" class="headerlink" title="2.2 包的命名"></a>2.2 包的命名</h2><p># <code>包名由小写的字母组成</code>，例如以 cc.solart.&lt;业务模块名&gt;.&lt;子模块名&gt;命名</p>
+<p># 一个模块是一个功能相对独立的模块，<code>应谨慎创建新的模块名</code> </p>
+<h2 id="2-3-类的命名"><a href="#2-3-类的命名" class="headerlink" title="2.3 类的命名"></a>2.3 类的命名</h2><p># <code>类名的首字母必须大写</code>，如果由多个单词组成，多个单词直接连接，<code>每个单词的首字母必须大写，其他字母小写</code>。例如：public class LoginActivity </p>
+<p># 类的域定义考量, 非公开类不要用public<code>(注意类的有效作用域)</code> </p>
+<h2 id="2-4-抽象类、接口的命名"><a href="#2-4-抽象类、接口的命名" class="headerlink" title="2.4 抽象类、接口的命名"></a>2.4 抽象类、接口的命名</h2><a id="more"></a>
+<p># 对于抽象类，<code>职责比较单一的以Abs开头</code>，例如:AbsJsonRequest，只包含单一的网络请求；<code>对于一些基类抽象封装一般采用Base开头</code>，例如BaseActivity。</p>
+<p># 对于有明显接口特征的接口(如后缀含有Listener/Observer)，参考类命名规范即可，例如：public interface ResponseListener。</p>
+<p># <code>对于没有明显接口特征的接口命名，首字母统一为大写 I</code>，其它单词首字母大写, 例如:public interface ILocation。</p>
+<h2 id="2-5-方法及参数的命名"><a href="#2-5-方法及参数的命名" class="headerlink" title="2.5 方法及参数的命名"></a>2.5 方法及参数的命名</h2><p># <code>方法名的首字母必须小写</code>，遵循驼峰命名。public void checkAuthToken()</p>
+<p># 方法参数名以该参数功能命名，格式同方法名命名规则相同。 public void checkAuthToken(String token)</p>
+<h2 id="2-6-常量的命名"><a href="#2-6-常量的命名" class="headerlink" title="2.6 常量的命名"></a>2.6 常量的命名</h2><p># <code>用 final static 修饰，名称都大写</code>，多个单词以下划线 “_” 连接，如:public final static String HTTP_HOST = “<a href="http://127.0.0.1:8080/" target="_blank" rel="external">http://127.0.0.1:8080/</a>“; 。</p>
+<h2 id="2-7-变量的命名"><a href="#2-7-变量的命名" class="headerlink" title="2.7 变量的命名"></a>2.7 变量的命名</h2><p># <code>非 static 的成员变量，命名必须写&#39;m&#39;前缀</code>，如：public Handler mHandler; </p>
+<p># <code>static修饰的成员变量，命名必须写&#39;s&#39;前缀</code>，如：public static String sAppKey; </p>
+<p># <code>枚举变量使用用&#39;e&#39;前缀</code>，如 private Weekday eWeekday;</p>
+<p># <code>局部变量命名首字母小写即可</code>，采用驼峰命名，如Context context;  </p>
+<h1 id="三、Android资源文件命名规则"><a href="#三、Android资源文件命名规则" class="headerlink" title="三、Android资源文件命名规则"></a>三、Android资源文件命名规则</h1><p>规范资源文件命名，统一风格。</p>
+<h2 id="3-1-文件命名"><a href="#3-1-文件命名" class="headerlink" title="3.1 文件命名"></a>3.1 文件命名</h2><p># res/layout目录下文件:<br>统一以布局类型开头，用小写和下划线”_”组合命名，如：首页 xml 布局文件: 例如:</p>
+<pre><code class="bash">activity_home.xml <span class="comment"># HomeActivity页面布局</span>
+ fragment_account.xml <span class="comment"># AccountFragment布局</span>
+ item_tips.xml <span class="comment"># Adapter item布局</span>
+</code></pre>
+<p># res/drawable目录下文件: 统一用小写加下划线”_”组合命名，同上，每个资源文件加前缀以便区分用途。如:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#13;bg_selector_normal.xml&#10;&#13;icon_submit_default.png</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-资源ID命名"><a href="#3-2-资源ID命名" class="headerlink" title="3.2 资源ID命名"></a>3.2 资源ID命名</h2><p># @id/@+id 名称的必须全部小写，单词之间用下划线隔开，名称不需要复杂的层级定位，只要准确描述所代表控件的功能作用即可，在名称使用当前控件类型的缩写作为前缀。例如：@+id/tv_name。</p>
+<p># res/color目录下文件: 统一用小写加下划线”_“组合命名，定义通用的背景色bg_color；定义字体通用色值，其他颜色统一用app_&lt;色值&gt;表示。</p>
+<pre><code class="xml"><span class="comment">&lt;!--载体颜色--&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"bg_color"</span>&gt;</span>#E5E5E5<span class="tag">&lt;/<span class="name">color</span>&gt;</span>    
+ <span class="comment">&lt;!--Material design color--&gt;</span>
+ <span class="comment">&lt;!--正常字体87%透明黑色--&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"font_color_normal_black_87"</span>&gt;</span>#DD000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+ <span class="comment">&lt;!--正常字体54%透明黑色--&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"font_color_light_black_54"</span>&gt;</span>#89000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+ <span class="comment">&lt;!--不可用状态使用的颜色26%透明--&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"font_color_enable_black_26"</span>&gt;</span>#42000000<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+
+ <span class="comment">&lt;!--其他非通用色值 采用app_&lt;小写色值编码&gt;命名即可，value色值字母大写--&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"app_d2322a"</span>&gt;</span>#FFD2322A<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"app_f36754"</span>&gt;</span>#FFF36754<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+ <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"app_d4503e"</span>&gt;</span>#FFD4503E<span class="tag">&lt;/<span class="name">color</span>&gt;</span>
+</code></pre>
+<h1 id="四、编码风格"><a href="#四、编码风格" class="headerlink" title="四、编码风格"></a>四、编码风格</h1><h2 id="4-1-一般性说明"><a href="#4-1-一般性说明" class="headerlink" title="4.1 一般性说明"></a>4.1 一般性说明</h2><p># <code>方法体行数不得超过 40 行</code>(一般来说40行绝对够用，且易于维护)；<br># 除去缩进长度，<code>单行长度不得超过 100 个字符</code>；<br># <code>圈复杂度不能超过 2 层</code>；<br># 单个文件长度一般不超过 1500 行(第三方代码除外)；<br># 公开 API 中所有参数都必须进行有效性验证；<br># 每次代码提交之前必须删除大量无效代码，去除无用的类import；<br># <code>使用第三方API增加异常捕获</code>，降低使用风险；try { … }catch(Exception e) { … }<br># 除作者信息外之外，代码其他处不可出现其他个人信息。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/2016/03/25/open-web/" class="next">NEXT</a></div><div data-thread-key="2016/05/14/code-specification/" data-title="Android代码规范" data-url="http://solart.cc/2016/05/14/code-specification/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"solart"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2015 - 2016 <a href="http://solart.cc">imilk</a>, unless otherwise noted.</p></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script><script src="https://cdn.bootcss.com/mathjax/2.5.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
