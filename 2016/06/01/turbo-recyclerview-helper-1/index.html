@@ -5,10 +5,11 @@
 <p>本次主要介绍针对<code>TurboRecyclerView</code>上拉/左滑的功能的实现及思路。</p>
 <p>下面直接进入正题…</p>
 <a id="more"></a>
-<h1 id="2-状态分析"><a href="#2-状态分析" class="headerlink" title="2. 状态分析"></a>2. 状态分析</h1><p>以上拉加载的过程作为本次分享的一个栗子。状态如下图：</p>
+<h1 id="2-状态分析"><a href="#2-状态分析" class="headerlink" title="2. 状态分析"></a>2. 状态分析</h1><p>以上拉加载的过程作为本次分享的一个栗子(左滑同理)。状态如下图：</p>
 <img src="/images/turbo_state_analysis.png">
-<p>我们所关心的是RecyclerView滑动到底部的状态，这个状态下是我们需要处理的<code>临界状态</code>。<br>初始状态以及滑动中的状态我们不需要关心（交给RecyclerView本身处理即可）。</p>
-<h1 id="3-目标状态的条件限制"><a href="#3-目标状态的条件限制" class="headerlink" title="3. 目标状态的条件限制"></a>3. 目标状态的条件限制</h1><p>废话不多说直接看代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!mLoadEnabled || canScrollEnd() || mIsLoading || isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们所关心的是RecyclerView滑动到底部的状态，这个状态下是我们需要处理的<code>临界状态</code>。</p>
+<p>下文中出现的代码均为精简后的代码片段，本文重在介绍思路，所涉及的知识点假设您已经掌握，故不再展开赘述。</p>
+<h1 id="3-临界状态的限制条件"><a href="#3-临界状态的限制条件" class="headerlink" title="3. 临界状态的限制条件"></a>3. 临界状态的限制条件</h1><p>废话不多说直接看代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!mLoadEnabled || canScrollEnd() || mIsLoading || isEmpty()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>...;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我们从两个方面来分析可以开始处理Touch事件的条件：</p>
 <h2 id="3-1-客观条件"><a href="#3-1-客观条件" class="headerlink" title="3.1 客观条件"></a>3.1 客观条件</h2><p>所谓客观条件即是RecyclerView滑动到底部的这个状态的物理状态，体现在代码上就是</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">canScrollEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="comment">//判断在纵向是否还能向上滑动</span></span><br><span class="line">   <span class="keyword">return</span> ViewCompat.canScrollVertically(<span class="keyword">this</span>, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
