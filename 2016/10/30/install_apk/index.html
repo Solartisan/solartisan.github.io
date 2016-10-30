@@ -8,7 +8,7 @@
 <a id="more"></a>
 <p> <img src="/images/apk_content.png" alt="apk_content"></p>
 <h2 id="1、安装流程图"><a href="#1、安装流程图" class="headerlink" title="1、安装流程图"></a>1、安装流程图</h2><p>先来看一张整体的流程图：</p>
-<p><img src="/images/install_apk.png" alt="install_apk"></p>
+<p><img src="/images/Install_apk.png" alt="install_apk"></p>
 <p>安装过程：复制apk安装包到/data/app目录下，解压并扫描安装包，向资源管理器注入apk资源，解析AndroidManifest文件，并在/data/data目录下创建对应的应用数据目录，然后针对dalvik/art环境优化dex文件，保存到dalvik-cache目录，将AndroidManifest文件解析出的组件、权限注册到PackageManagerService，完成后发送广播。</p>
 <h2 id="2、安装时序图"><a href="#2、安装时序图" class="headerlink" title="2、安装时序图"></a>2、安装时序图</h2><p>上图太过笼统，不利于了解细节，这里整理出一张时序图，以便于分析。</p>
 <p><img src="/images/install_apk_seq.png" alt="install_apk_seq"></p>

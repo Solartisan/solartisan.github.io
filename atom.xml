@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-10-30T04:52:26.000Z</updated>
+  <updated>2016-10-30T04:55:18.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://solart.cc/2016/10/30/install_apk/"/>
     <id>http://solart.cc/2016/10/30/install_apk/</id>
     <published>2016-10-30T11:08:08.000Z</published>
-    <updated>2016-10-30T04:52:26.000Z</updated>
+    <updated>2016-10-30T04:55:18.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mail://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -32,7 +32,7 @@
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt; &lt;img src=&quot;/images/apk_content.png&quot; alt=&quot;apk_content&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;1、安装流程图&quot;&gt;&lt;a href=&quot;#1、安装流程图&quot; class=&quot;headerlink&quot; title=&quot;1、安装流程图&quot;&gt;&lt;/a&gt;1、安装流程图&lt;/h2&gt;&lt;p&gt;先来看一张整体的流程图：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;/images/install_apk.png&quot; alt=&quot;install_apk&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/Install_apk.png&quot; alt=&quot;install_apk&quot;&gt;&lt;/p&gt;
 &lt;p&gt;安装过程：复制apk安装包到/data/app目录下，解压并扫描安装包，向资源管理器注入apk资源，解析AndroidManifest文件，并在/data/data目录下创建对应的应用数据目录，然后针对dalvik/art环境优化dex文件，保存到dalvik-cache目录，将AndroidManifest文件解析出的组件、权限注册到PackageManagerService，完成后发送广播。&lt;/p&gt;
 &lt;h2 id=&quot;2、安装时序图&quot;&gt;&lt;a href=&quot;#2、安装时序图&quot; class=&quot;headerlink&quot; title=&quot;2、安装时序图&quot;&gt;&lt;/a&gt;2、安装时序图&lt;/h2&gt;&lt;p&gt;上图太过笼统，不利于了解细节，这里整理出一张时序图，以便于分析。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/install_apk_seq.png&quot; alt=&quot;install_apk_seq&quot;&gt;&lt;/p&gt;
