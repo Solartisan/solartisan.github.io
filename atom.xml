@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-10-30T04:55:18.000Z</updated>
+  <updated>2016-11-10T06:20:51.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://solart.cc/2016/10/30/install_apk/"/>
     <id>http://solart.cc/2016/10/30/install_apk/</id>
     <published>2016-10-30T11:08:08.000Z</published>
-    <updated>2016-10-30T04:55:18.000Z</updated>
+    <updated>2016-11-10T06:20:51.000Z</updated>
     
-    <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mail://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -67,7 +67,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;作者：&lt;a href=&quot;mail://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -151,9 +151,9 @@
     <link href="http://solart.cc/2016/08/20/launch_app/"/>
     <id>http://solart.cc/2016/08/20/launch_app/</id>
     <published>2016-08-20T09:32:08.000Z</published>
-    <updated>2016-09-01T14:29:19.000Z</updated>
+    <updated>2016-11-10T06:21:02.000Z</updated>
     
-    <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mail://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -215,7 +215,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;作者：&lt;a href=&quot;mail://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
 &lt;/blockquote&gt;
