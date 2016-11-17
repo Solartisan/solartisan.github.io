@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-11-17T02:07:23.000Z</updated>
+  <updated>2016-11-17T02:56:17.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,14 +20,14 @@
     <link href="http://solart.cc/2016/11/16/plugin_classloader/"/>
     <id>http://solart.cc/2016/11/16/plugin_classloader/</id>
     <published>2016-11-16T12:30:06.000Z</published>
-    <updated>2016-11-17T02:07:23.000Z</updated>
+    <updated>2016-11-17T02:56:17.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。&lt;/p&gt;
-&lt;h4 id=&quot;类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;类加载器的树状组织结构&quot;&gt;&lt;/a&gt;类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
+&lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。这部分知识请参考&lt;a href=&quot;https://www.ibm.com/developerworks/cn/java/j-lo-classloader/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入探讨 Java 类加载器&lt;/a&gt;，以下摘录部分内容。&lt;/p&gt;
+&lt;h4 id=&quot;1-1-类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#1-1-类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;1.1 类加载器的树状组织结构&quot;&gt;&lt;/a&gt;1.1 类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;引导类加载器（bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的，并不继承自 &lt;code&gt;java.lang.ClassLoader&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
@@ -36,8 +36,8 @@
 &lt;li&gt;系统类加载器（system class loader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java 应用的类都是由它来完成加载的。可以通过 &lt;code&gt;ClassLoader.getSystemClassLoader()&lt;/code&gt;来获取它。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h4 id=&quot;类加载器的代理模式&quot;&gt;&lt;a href=&quot;#类加载器的代理模式&quot; class=&quot;headerlink&quot; title=&quot;类加载器的代理模式&quot;&gt;&lt;/a&gt;类加载器的代理模式&lt;/h4&gt;&lt;p&gt;&lt;code&gt;类加载器&lt;/code&gt;在尝试自己去查找某个类的字节代码并定义它时，会先代理给其父类加载器，由父类加载器先去尝试加载这个类，依次类推。在介绍代理模式背后的动机之前，首先需要说明一下 Java 虚拟机是如何判定两个 Java 类是相同的。Java 虚拟机不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即便是同样的字节代码，被不同的类加载器加载之后所得到的类，也是不同的。&lt;/p&gt;
-&lt;h4 id=&quot;加载类的过程&quot;&gt;&lt;a href=&quot;#加载类的过程&quot; class=&quot;headerlink&quot; title=&quot;加载类的过程&quot;&gt;&lt;/a&gt;加载类的过程&lt;/h4&gt;&lt;p&gt;在前面介绍类加载器的代理模式的时候，提到过类加载器会首先代理给其它类加载器来尝试加载某个类。这就意味着真正完成类的加载工作的类加载器和启动这个加载过程的类加载器，有可能不是同一个。真正完成类的加载工作是通过调用 &lt;code&gt;defineClass&lt;/code&gt;来实现的；而启动类的加载过程是通过调用 &lt;code&gt;loadClass&lt;/code&gt;来实现的。前者称为一个类的定义加载器（defining loader），后者称为初始加载器（initiating loader）。在 Java 虚拟机判断两个类是否相同的时候，使用的是类的定义加载器。也就是说，哪个类加载器启动类的加载过程并不重要，重要的是最终定义这个类的加载器。两种类加载器的关联之处在于：一个类的定义加载器是它引用的其它类的初始加载器。更多细节可参考&lt;a href=&quot;https://www.ibm.com/developerworks/cn/java/j-lo-classloader/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入探讨 Java 类加载器&lt;/a&gt;。&lt;/p&gt;
+&lt;h4 id=&quot;1-2-类加载器的代理模式&quot;&gt;&lt;a href=&quot;#1-2-类加载器的代理模式&quot; class=&quot;headerlink&quot; title=&quot;1.2 类加载器的代理模式&quot;&gt;&lt;/a&gt;1.2 类加载器的代理模式&lt;/h4&gt;&lt;p&gt;&lt;code&gt;类加载器&lt;/code&gt;在尝试自己去查找某个类的字节代码并定义它时，会先代理给其父类加载器，由父类加载器先去尝试加载这个类，依次类推。在介绍代理模式背后的动机之前，首先需要说明一下 Java 虚拟机是如何判定两个 Java 类是相同的。Java 虚拟机不仅要看类的全名是否相同，还要看加载此类的类加载器是否一样。只有两者都相同的情况，才认为两个类是相同的。即便是同样的字节代码，被不同的类加载器加载之后所得到的类，也是不同的。&lt;/p&gt;
+&lt;h4 id=&quot;1-3-加载类的过程&quot;&gt;&lt;a href=&quot;#1-3-加载类的过程&quot; class=&quot;headerlink&quot; title=&quot;1.3 加载类的过程&quot;&gt;&lt;/a&gt;1.3 加载类的过程&lt;/h4&gt;&lt;p&gt;在前面介绍类加载器的代理模式的时候，提到过类加载器会首先代理给其它类加载器来尝试加载某个类。这就意味着真正完成类的加载工作的类加载器和启动这个加载过程的类加载器，有可能不是同一个。真正完成类的加载工作是通过调用 &lt;code&gt;defineClass&lt;/code&gt;来实现的；而启动类的加载过程是通过调用 &lt;code&gt;loadClass&lt;/code&gt;来实现的。前者称为一个类的定义加载器（defining loader），后者称为初始加载器（initiating loader）。在 Java 虚拟机判断两个类是否相同的时候，使用的是类的定义加载器。也就是说，哪个类加载器启动类的加载过程并不重要，重要的是最终定义这个类的加载器。两种类加载器的关联之处在于：一个类的定义加载器是它引用的其它类的初始加载器。更多细节可参考&lt;a href=&quot;https://www.ibm.com/developerworks/cn/java/j-lo-classloader/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深入探讨 Java 类加载器&lt;/a&gt;。&lt;/p&gt;
 &lt;h2 id=&quot;2、DexClassLoader-和-PathClassLoader&quot;&gt;&lt;a href=&quot;#2、DexClassLoader-和-PathClassLoader&quot; class=&quot;headerlink&quot; title=&quot;2、DexClassLoader 和 PathClassLoader&quot;&gt;&lt;/a&gt;2、DexClassLoader 和 PathClassLoader&lt;/h2&gt;&lt;p&gt;Java的类加载是一个相对复杂的过程；它包括加载、验证、准备、解析和初始化五个阶段；对于开发者来说，可控性最强的是&lt;strong&gt;加载阶段&lt;/strong&gt;；加载阶段主要完成三件事：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;根据一个类的全限定名来获取定义此类的二进制字节流&lt;/li&gt;
@@ -72,6 +72,7 @@
 &lt;p&gt;可以看到有两个 ClassLoader 的实例输出，一个&lt;code&gt;PathClassLoader&lt;/code&gt;，应用启动时创建的，用于加载 apk 中的类，另一个是&lt;code&gt;BootClassLoader&lt;/code&gt;，系统启动时创建的，用于加载系统相关的类。&lt;/p&gt;
 &lt;p&gt;其实看到这里我们可以看出，任何运行的Android应用至少包含有两个 ClassLoader，每个应用中的&lt;code&gt;PathClassLoader&lt;/code&gt;拥有同一个&lt;code&gt;parent&lt;/code&gt;即是&lt;code&gt;BootClassLoader&lt;/code&gt;，这样就保证了&lt;code&gt;系统代码共享以及应用代码隔离&lt;/code&gt;，如下图。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/classloader.png&quot; alt=&quot;classloader&quot;&gt;&lt;/p&gt;
+&lt;p&gt;额外提一下的是，由于系统代码是全局共享的，那么这就产生了一个问题，那就是给了开发者Hook系统代码的机会，所以系统安全性是一个很大的考验，不知道Google是如何考量这个问题的，当然正因为这种机会的存在才给了插件化发展的契机。假设这样一个场景：两个应用都使用了Hook的机制，那么有可能导致一方Hook失效，所以一般在使用Hook后的服务时，一般要去做环境检测，看是否需要重新注入。这就属于Hook框架的博弈了。&lt;/p&gt;
 &lt;h4 id=&quot;3-2-插件化-Dex-加载策略&quot;&gt;&lt;a href=&quot;#3-2-插件化-Dex-加载策略&quot; class=&quot;headerlink&quot; title=&quot;3.2 插件化 Dex 加载策略&quot;&gt;&lt;/a&gt;3.2 插件化 Dex 加载策略&lt;/h4&gt;&lt;p&gt;我们可以借鉴这种思路应用到插件化的框架中，根据不同的出发点，通常插件化的 Dex 加载策略有两种：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;可以对每一个插件分配一个&lt;code&gt;ClassLoader&lt;/code&gt;分别加载&lt;code&gt;.dex&lt;/code&gt;(这是目前最常见的方式)&lt;/li&gt;
@@ -120,8 +121,8 @@
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。&lt;/p&gt;
-&lt;h4 id=&quot;类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;类加载器的树状组织结构&quot;&gt;&lt;/a&gt;类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
+&lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。这部分知识请参考&lt;a href=&quot;https://www.ibm.com/developerworks/cn/java/j-lo-classloader/&quot;&gt;深入探讨 Java 类加载器&lt;/a&gt;，以下摘录部分内容。&lt;/p&gt;
+&lt;h4 id=&quot;1-1-类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#1-1-类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;1.1 类加载器的树状组织结构&quot;&gt;&lt;/a&gt;1.1 类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;引导类加载器（bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的，并不继承自 &lt;code&gt;java.lang.ClassLoader&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
