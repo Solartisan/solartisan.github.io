@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-11-16T12:34:24.000Z</updated>
+  <updated>2016-11-17T02:07:23.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,9 +20,12 @@
     <link href="http://solart.cc/2016/11/16/plugin_classloader/"/>
     <id>http://solart.cc/2016/11/16/plugin_classloader/</id>
     <published>2016-11-16T12:30:06.000Z</published>
-    <updated>2016-11-16T12:34:24.000Z</updated>
+    <updated>2016-11-17T02:07:23.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。&lt;/p&gt;
 &lt;h4 id=&quot;类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;类加载器的树状组织结构&quot;&gt;&lt;/a&gt;类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
 &lt;ul&gt;
@@ -114,6 +117,9 @@
     <summary type="html">
     
       &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;h2 id=&quot;1、Java-类加载器&quot;&gt;&lt;a href=&quot;#1、Java-类加载器&quot; class=&quot;headerlink&quot; title=&quot;1、Java 类加载器&quot;&gt;&lt;/a&gt;1、Java 类加载器&lt;/h2&gt;&lt;p&gt;提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。&lt;/p&gt;
 &lt;h4 id=&quot;类加载器的树状组织结构&quot;&gt;&lt;a href=&quot;#类加载器的树状组织结构&quot; class=&quot;headerlink&quot; title=&quot;类加载器的树状组织结构&quot;&gt;&lt;/a&gt;类加载器的树状组织结构&lt;/h4&gt;&lt;p&gt;Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：&lt;/p&gt;
 &lt;ul&gt;
@@ -136,11 +142,11 @@
     <link href="http://solart.cc/2016/10/30/install_apk/"/>
     <id>http://solart.cc/2016/10/30/install_apk/</id>
     <published>2016-10-30T11:08:08.000Z</published>
-    <updated>2016-11-10T06:20:51.000Z</updated>
+    <updated>2016-11-17T02:06:23.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;这段时间在研究插件化相关的技术，追根溯源，所以干脆把Apk的安装流程梳理了一遍，与大家共享，望指正！&lt;/p&gt;
 &lt;p&gt;本文基于Android 5.1的源码，分析Apk安装流程。&lt;/p&gt;
@@ -185,7 +191,7 @@
     
       &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;这段时间在研究插件化相关的技术，追根溯源，所以干脆把Apk的安装流程梳理了一遍，与大家共享，望指正！&lt;/p&gt;
 &lt;p&gt;本文基于Android 5.1的源码，分析Apk安装流程。&lt;/p&gt;
@@ -203,11 +209,11 @@
     <link href="http://solart.cc/2016/09/15/framework_token/"/>
     <id>http://solart.cc/2016/09/15/framework_token/</id>
     <published>2016-09-15T12:08:08.000Z</published>
-    <updated>2016-09-15T11:09:09.000Z</updated>
+    <updated>2016-11-17T02:09:59.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在梳理&lt;a href=&quot;http://solart.cc/2016/08/20/launch_app/&quot;&gt;应用启动流程分析&lt;/a&gt;的过程中，在涉及到AMS以及ApplicationThread互相调用的流程中，有不少的方法涉及到了一个参数&lt;code&gt;IBinder token&lt;/code&gt;的传递，当时并没有阐述这部分内容，现在我们来研究一下这个出现在很多地方的token到底是什么，在系统中起到了一个什么样的作用。&lt;/p&gt;
 &lt;h2 id=&quot;1、追寻token&quot;&gt;&lt;a href=&quot;#1、追寻token&quot; class=&quot;headerlink&quot; title=&quot;1、追寻token&quot;&gt;&lt;/a&gt;1、追寻token&lt;/h2&gt;&lt;p&gt;我们知道Context提供了一个应用的运行环境，在Context的大环境里，应用才可以访问资源，才能完成和其他组件、服务的交互，这个入手点就锁定在了ContextImpl这个Context的真正的实现类上&lt;/p&gt;
@@ -249,7 +255,7 @@
     
       &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;在梳理&lt;a href=&quot;http://solart.cc/2016/08/20/launch_app/&quot;&gt;应用启动流程分析&lt;/a&gt;的过程中，在涉及到AMS以及ApplicationThread互相调用的流程中，有不少的方法涉及到了一个参数&lt;code&gt;IBinder token&lt;/code&gt;的传递，当时并没有阐述这部分内容，现在我们来研究一下这个出现在很多地方的token到底是什么，在系统中起到了一个什么样的作用。&lt;/p&gt;
 &lt;h2 id=&quot;1、追寻token&quot;&gt;&lt;a href=&quot;#1、追寻token&quot; class=&quot;headerlink&quot; title=&quot;1、追寻token&quot;&gt;&lt;/a&gt;1、追寻token&lt;/h2&gt;&lt;p&gt;我们知道Context提供了一个应用的运行环境，在Context的大环境里，应用才可以访问资源，才能完成和其他组件、服务的交互，这个入手点就锁定在了ContextImpl这个Context的真正的实现类上&lt;/p&gt;
@@ -267,11 +273,11 @@
     <link href="http://solart.cc/2016/08/20/launch_app/"/>
     <id>http://solart.cc/2016/08/20/launch_app/</id>
     <published>2016-08-20T09:32:08.000Z</published>
-    <updated>2016-11-10T06:21:02.000Z</updated>
+    <updated>2016-11-17T02:06:47.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;大家有没有好奇过点击&lt;code&gt;Launcher&lt;/code&gt;图标时，到唤起一个应用页面，这个流程会是怎么样的？本文的目的就是尽可能梳理清楚流程，能够让大家对整个流程有一个相对清晰的认知。&lt;/p&gt;
 &lt;p&gt;在我们开始之前，希望您能最好已经满足以下条件：&lt;/p&gt;
@@ -333,7 +339,7 @@
     
       &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;版权声明：本文图文为博主原创，未经博主允许不得转载。&lt;/p&gt;
+&lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;大家有没有好奇过点击&lt;code&gt;Launcher&lt;/code&gt;图标时，到唤起一个应用页面，这个流程会是怎么样的？本文的目的就是尽可能梳理清楚流程，能够让大家对整个流程有一个相对清晰的认知。&lt;/p&gt;
 &lt;p&gt;在我们开始之前，希望您能最好已经满足以下条件：&lt;/p&gt;
@@ -470,7 +476,7 @@
     <link href="http://solart.cc/2016/06/18/turbo-recyclerview-helper-2/"/>
     <id>http://solart.cc/2016/06/18/turbo-recyclerview-helper-2/</id>
     <published>2016-06-18T05:52:08.000Z</published>
-    <updated>2016-11-16T12:40:02.000Z</updated>
+    <updated>2016-11-16T12:40:57.000Z</updated>
     
     <content type="html">&lt;p&gt;上次讲到&lt;a href=&quot;http://solart.cc/2016/06/01/turbo-recyclerview-helper-1/&quot;&gt;实现RecyclerView的功能扩展&lt;/a&gt;,本次就接着介绍针对&lt;code&gt;RecyclerView.Adapter&lt;/code&gt;的封装的一些想法。&lt;/p&gt;
 &lt;h1 id=&quot;1、功能介绍&quot;&gt;&lt;a href=&quot;#1、功能介绍&quot; class=&quot;headerlink&quot; title=&quot;1、功能介绍&quot;&gt;&lt;/a&gt;1、功能介绍&lt;/h1&gt;&lt;p&gt;随着移动端的蓬勃发展，复杂的产品布局也变成了家常便饭，复杂的布局排列组合也成了常态。&lt;/p&gt;
