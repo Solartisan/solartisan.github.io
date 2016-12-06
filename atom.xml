@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2016-12-06T08:15:28.000Z</updated>
+  <updated>2016-12-06T08:18:41.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://solart.cc/2016/12/06/keep_alive_push/"/>
     <id>http://solart.cc/2016/12/06/keep_alive_push/</id>
     <published>2016-12-06T06:50:06.000Z</published>
-    <updated>2016-12-06T08:15:28.000Z</updated>
+    <updated>2016-12-06T08:18:41.000Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;imilk&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -92,7 +92,7 @@
 &lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;#10140;  ~ adb logcat -s nuts&amp;#10;- waiting for device -&amp;#10;--------- beginning of /dev/log/system&amp;#10;--------- beginning of /dev/log/main&amp;#10;11-28 16:34:35.821  5675  5675 D nuts    : WakeUpService onStartJob&amp;#10;11-28 16:34:35.821  5675  5675 D nuts    : KeepAliveService onStartCommand invoke&amp;#10;11-28 16:34:35.841  5675  5675 D nuts    : InnerService onStartCommand invoke&amp;#10;11-28 16:34:40.871  5675  5675 D nuts    : WakeUpService onStartJob&amp;#10;11-28 16:34:40.881  5675  5675 D nuts    : KeepAliveService onStartCommand invoke&amp;#10;11-28 16:34:40.901  5675  5675 D nuts    : InnerService onStartCommand invoke&amp;#10;11-28 16:34:45.931  5675  5675 D nuts    : WakeUpService onStartJob&amp;#10;11-28 16:34:45.931  5675  5675 D nuts    : KeepAliveService onStartCommand invoke&amp;#10;11-28 16:34:45.951  5675  5675 D nuts    : InnerService onStartCommand invoke&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;我们看到 App 被杀死后，还是被唤起了。即使通过一键清理仍然能够唤醒，目前经过测试在 5.0 之后的机型还暂没有遇到不能唤醒的 case 。当然如果厂商将你的 App 加入了黑名单那是无论如何也起不来了。&lt;/p&gt;
 &lt;h2 id=&quot;4、总结&quot;&gt;&lt;a href=&quot;#4、总结&quot; class=&quot;headerlink&quot; title=&quot;4、总结&quot;&gt;&lt;/a&gt;4、总结&lt;/h2&gt;&lt;p&gt;当然除了这些手段，我还针对通知权限做了一些研究，由于方案还不成熟，这里就不在分享。&lt;/p&gt;
-&lt;p&gt;以上我们通过种种手段将 App 做到了即使在后台依然能够使 OOM_ADJ 的值维持在 2 的水平，当然有效的提升了 Push 的到达率。而大家在选择 Push 服务时可以多考虑小米、华为这样厂商支持的推送，毕竟在自家的平台上还是比一般的推送有很大优势的。在 Google 服务无法回归的情况下，如果诸多厂商联合起来推出一个 Push 服务…算了不在 YY 了。&lt;/p&gt;
+&lt;p&gt;以上我们通过种种手段将 App 做到了即使在后台依然能够使 OOM_ADJ 的值维持在 2 的水平，从而有效的提升了 Push 的送达率。而大家在选择 Push 服务时可以多考虑小米、华为这样厂商支持的推送，毕竟在自家的平台上还是比一般的推送有系统级进程的优势存在。在 Google 服务无法回归的情况下，如果诸多厂商联合起来推出一个 Push 服务…算了不在 YY 了。&lt;/p&gt;
 &lt;p&gt;最后，以上所有手段请慎重使用！&lt;/p&gt;
 </content>
     
