@@ -1,0 +1,48 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> stardard JS 代码规范及 pre-commit hook · Solartisan</title><meta name="description" content="stardard JS 代码规范及 pre-commit hook - solart"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">stardard JS 代码规范及 pre-commit hook</h1><div class="post-info">Mar 18, 2017</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com" target="_blank" rel="external">solart</a></p>
+<blockquote>
+<p>版权声明：本文为博主原创，转载请注明出处。</p>
+</blockquote>
+<p>今天主要安利一个 JavaScript 代码规范 <a href="http://standardjs.com/" target="_blank" rel="external">standard js</a> ，不论你一开始喜不喜欢这个标准，相信我开使用它，你会爱上这个标准！</p>
+<h2 id="1、序言"><a href="#1、序言" class="headerlink" title="1、序言"></a>1、序言</h2><p>是的最近团队一直在 React Native 上进行探索性业务开发，在团队项目的合作中代码规范对于我们是一个相当重要的素质要求，对于注重代码质量注重代码可读性的团队尤其重要。由于缺乏代码规范，不同的人有不同的偏好，代码可读性会随着团队成员的更迭逐渐降低，也因为这样有可能带来线上 bug，而这些完全是可以通过代码检查避免的。</p>
+<h2 id="2、是时候强制要求代码规范了"><a href="#2、是时候强制要求代码规范了" class="headerlink" title="2、是时候强制要求代码规范了"></a>2、是时候强制要求代码规范了</h2><p> <code>强制</code>两个字是好说不好听，谁也不愿意被强制要求这样那样，但这个事情我觉得懂的人自然懂，没什么好说的，团队合作就应该采用相同的规范，不同的人写的代码应该看起来是出自同一个人之手。</p>
+<a id="more"></a>
+<h4 id="2-1-为什么选择-stardard-作为-js-代码规范"><a href="#2-1-为什么选择-stardard-作为-js-代码规范" class="headerlink" title="2.1 为什么选择 stardard 作为 js 代码规范"></a>2.1 为什么选择 stardard 作为 js 代码规范</h4><p>面对各种各样的 <code>js</code> 代码规范我们应该怎么选择呢？在比较了 <a href="https://github.com/feross/standard" target="_blank" rel="external">standard</a>、<a href="https://github.com/airbnb/javascript" target="_blank" rel="external">airbnb</a>、<a href="https://github.com/rwaldron/idiomatic.js/tree/master/translations/zh_CN" target="_blank" rel="external">Idiomatic.js</a>、<a href="https://contribute.jquery.org/style-guide/js/" target="_blank" rel="external">jQuery</a> <a href="http://noeticforce.com/best-javascript-style-guide-for-maintainable-code" target="_blank" rel="external">等更多 JS 代码规范后</a> ，极力推荐把 <a href="https://github.com/feross/standard" target="_blank" rel="external">standard</a> 作为团队的 <code>js</code> 代码标准，主要因为：</p>
+<ol>
+<li>简单，无需配置文件</li>
+<li>符合规则的代码相对比较简洁（比如语句不需要分号）</li>
+<li>可以自动修正代码样式（通过 <code>--fix</code> 参数）</li>
+</ol>
+<p>当然还有一点，stardard 的重点就是在于避免那些对于编码风格永远不会有答案的争议上。把时间花在那些真正该解决的问题上吧！</p>
+<h4 id="2-2-一些主要的规则"><a href="#2-2-一些主要的规则" class="headerlink" title="2.2 一些主要的规则"></a>2.2 一些主要的规则</h4><ul>
+<li>用2个空格缩进</li>
+<li>字符串用单引号，除非字符串里有单引号</li>
+<li>不能有未使用的变量，这是很多 bug 的来源</li>
+<li>语句结束不需要分号，可以少些不少字符 <a href="http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding" target="_blank" rel="external">It’s</a> <a href="http://inimino.org/~inimino/blog/javascript_semicolons" target="_blank" rel="external">fine.</a> <a href="https://www.youtube.com/watch?v=gsfbh17Ax9I" target="_blank" rel="external">Really!</a></li>
+<li>不要以 <code>(</code>, <code>[</code>, or ``` 开头，这是仅有的缺少分号可能带来问题的地方，standard js 会帮你自动检查</li>
+<li>关键字后面加空格 <code>if (condition) { ... }</code></li>
+<li>函数名后面加空格 <code>function name (arg) { ... }</code></li>
+<li>永远使用 <code>===</code> 代替 <code>==</code>，但 <code>obj == null</code> 是允许的，用来检查 <code>null || undefined</code>.</li>
+<li>永远处理错误 nodejs 类型的错误 <code>function(err) {}</code></li>
+<li>浏览器全局变量永远加上 <code>window</code>，<code>document</code> 和 <code>navigator</code> 除外</li>
+<li>查看<a href="https://github.com/feross/standard/blob/master/RULES.md" target="_blank" rel="external">更多规则</a></li>
+</ul>
+<h2 id="3、pre-commit-hook"><a href="#3、pre-commit-hook" class="headerlink" title="3、pre-commit hook"></a>3、pre-commit hook</h2><p>不管是什么规范得不到有效的执行那都是没有意义，只靠苦口婆心的强调很难确保所有人都能完全按照规范执行，我们是什么人，技术工种耶，能用技术手段的解决的问题我们从来不浪费嘴皮子。利用 Git 提供的 pre-commit hook 可以很好的确保在提交代码时进行规范性检查，从而优雅的保证了自己的体面（骄傲脸）。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;# Ensure all javascript files staged for commit pass standard code style&#10;git diff --name-only --cached --relative | grep &#34;\.jsx\?$&#34; | xargs standard --verbose | snazzy&#10;if [ $? -ne 0 ]; then exit 1; fi</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ul>
+<li>文件位于<code>.git/hooks/pre-commit</code></li>
+<li><code>standard</code> 和 <code>snazzy</code> 需要通过 npm 全局安装 <code>npm install -g standard snazzy</code></li>
+</ul>
+<p>pre-commit 文件可以通过执行以下脚本自动创建。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh&#10;if [ &#34;`which standard`&#34; = &#34;&#34; ]; then&#10;    npm install standard -g&#10;fi&#10;&#10;if [ &#34;`which snazzy`&#34; = &#34;&#34; ]; then&#10;    npm install snazzy -g&#10;fi&#10;&#10;hookDir=./.git/hooks&#10;if [ ! -d $hookDir ]; then&#10;    mkdir -p $hookDir&#10;fi&#10;&#10;echo &#39;#!/usr/bin/env bash&#10;&#10;# Ensure all javascript files staged for commit pass standard code style&#10;if [ &#34;$CHECK&#34; = &#34;0&#34; ]; then&#10;&#9;echo &#34;ignore pre commit check&#34;&#10;&#9;exit&#10;fi&#10;&#10;git diff --name-only --cached --relative | grep &#34;\.jsx\?$&#34; | xargs standard --verbose | snazzy&#10;&#10;if [ $? -ne 0 ]; then exit 1; fi&#10;&#39; &#62; .git/hooks/pre-commit&#10;&#10;chmod +x .git/hooks/pre-commit</span><br></pre></td></tr></table></figure>
+</div></article></div></section><footer><div class="paginator"><a href="/2017/02/22/react-native-jsbundle_patch/" class="next">NEXT</a></div><div style="padding:0; margin: 30px auto; width: 100%; text-align: center;"><div style="font-size: 1em; margin: 10px auto;color:#f44336;font-weight: bold"> 如果觉得本文对你有帮助，不妨请作者喝瓶养乐多<div style="padding: 0; margin: 10px auto; width: 100%; text-align: center; color:#f44336;"></div></div><button style="cursor: pointer; border: 0; outline: 0; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0; text-shadow: none; background-color: transparent; text-align: center; cursor: pointer;" id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"><span style="display: inline-block; width: 70px; height: 70px; color: #fff; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 2.5em; text-align: center; line-height: 70px; background: #f44336; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;">赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="width: auto; max-width: 50%; float: left; margin: 20px; display: inline-block;"><img id="wechat_qr" src="/images/wechat.png" alt="WechatPay"></div><div id="alipay" style="width: auto; max-width: 50%; float: right; margin: 20px; display: inline-block;"><img id="alipay_qr" src="/images/alipay.png" alt="Alipay"></div></div></div><div data-thread-key="2017/03/18/stardard_js/" data-title="stardard JS 代码规范及 pre-commit hook" data-url="http://solart.cc/2017/03/18/stardard_js/" data-author-key="1" class="ds-thread"></div><script>var duoshuoQuery = {short_name:"solart"};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+
+</script><div class="copyright"><p>© 2015 - 2017 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>
