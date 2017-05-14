@@ -1,0 +1,67 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 我眼中的 React Native · Solartisan</title><meta name="description" content="我眼中的 React Native - solart"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">我眼中的 React Native</h1><div class="post-info">May 12, 2017</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com" target="_blank" rel="external">solart</a></p>
+<blockquote>
+<p>版权声明：本文为博主原创，转载请注明出处。</p>
+</blockquote>
+<p>对 <code>React Native</code> 的学习和开发有半年多的时间，在这个时间上我觉得可以粗浅的阐述下我理解的 <code>React Native</code> 是怎样的一种技术栈以及我对它的一些看法。</p>
+<h2 id="1、DOM-与-JavaScript"><a href="#1、DOM-与-JavaScript" class="headerlink" title="1、DOM 与 JavaScript"></a>1、DOM 与 JavaScript</h2><p>简单来说， <code>DOM (Document Object Model)</code> 是操作HTML/XML文档的一组接口，大家熟知的 Web 交互，就是由 JavaScript 操作 DOM 完成的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">h2</span>&gt;</span>Title<span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">p</span>&gt;</span>This is a paragraph<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="1-1-DOM-的缺陷"><a href="#1-1-DOM-的缺陷" class="headerlink" title="1.1 DOM 的缺陷"></a>1.1 DOM 的缺陷</h4><ul>
+<li>直接操作 DOM 的接口不方便</li>
+<li>需要大量的兼容性代码（针对不同的浏览器平台或版本）</li>
+<li>性能较差</li>
+</ul>
+<p>早期的 Web 页面用户体验比较差，这与 DOM 本身的缺陷有着一定的关系。在 Web 开发中，我们总需要将变化的数据实时反应到 UI 上，这时就需要对 DOM 进行操作，除了操作不便和需要大量的兼容代码外，频繁或复杂的 DOM 操作通常也是性能瓶颈产生的原因，直到以 <code>JQuery</code> 为代表的第三方框诞生才解决了大多数的开发痛点，但依然达不到桌面级的开发体验。</p>
+<h4 id="1-2-JavaScript-的成长"><a href="#1-2-JavaScript-的成长" class="headerlink" title="1.2 JavaScript 的成长"></a>1.2 JavaScript 的成长</h4><p>众所周知，由于 JavaScript 设计阶段过于仓促（据说设计者 <a href="https://en.wikipedia.org/wiki/Brendan_Eich" target="_blank" rel="external">Brendan Eich</a> 仅仅用了十天），设计并不完善，甚至有人总结了 JavaScript 的 10 个设计缺陷，而这些缺陷本身并没有扼住它的发展，随着 <code>ES 5</code>、<code>ES 6</code> 的相继发布 JavaScript 被越来越多的开发者认可。除了作为 Web 端开发的不二选择，还被拓展到后端开发 <a href="https://nodejs.org/" target="_blank" rel="external"><code>Node.js</code></a>，2016 年甚至被称为大前端元年。</p>
+<h2 id="2、前端框架-React"><a href="#2、前端框架-React" class="headerlink" title="2、前端框架 React"></a>2、前端框架 React</h2><p>随着基于 HTML 的前端界面开发变得越来越复杂，为了解决这一问题，Facebook 推出的 React 框架应运而生。</p>
+<a id="more"></a>
+<h4 id="2-1-React-特点"><a href="#2-1-React-特点" class="headerlink" title="2.1 React 特点"></a>2.1 React 特点</h4><ul>
+<li>虚拟 DOM —— 减少真实 DOM 操作 （提升性能）</li>
+<li>组件化 —— 封装 HTML 片段和事件处理 （易于重用，可维护性强）</li>
+<li>封装事件 —— 将原始浏览器事件转换为 React 事件 （处理兼容性）</li>
+<li>数据绑定 —— 监听属性和状态自动更新页面 （提升开发体验）</li>
+<li>全屏更新 —— 渲染整个页面，但只更新需要变化的部分 （提升性能及开发体验）</li>
+</ul>
+<p>以上这些特点是 React 吸引前端开发人员的主要因素，也是它的设计理念，现在你可以看到 React 的社区是多么活跃。</p>
+<h4 id="2-2-React-组件和虚拟-DOM"><a href="#2-2-React-组件和虚拟-DOM" class="headerlink" title="2.2 React 组件和虚拟 DOM"></a>2.2 React 组件和虚拟 DOM</h4><p><img src="/images/jsx2html.png" alt="jsx2html"></p>
+<p>驱动 React 高效性能的虚拟 DOM 技术作用的最基础单元是 React 中被称为组件（Component）的东西。</p>
+<h2 id="3、React-Native"><a href="#3、React-Native" class="headerlink" title="3、React Native"></a>3、React Native</h2><p>React 跨平台的潜力逐渐被发掘，于是诞生了 React Native。其实从 React 拓展出来的框架还有像 <a href="https://github.com/necolas/react-native-web" target="_blank" rel="external">react-native-web</a> （基于 React Native 的组件及 API 拓展到了 Web 端）以及适配 Windows 一些项目等。</p>
+<h4 id="3-1-React-Native-与-React"><a href="#3-1-React-Native-与-React" class="headerlink" title="3.1 React Native 与 React"></a>3.1 React Native 与 React</h4><p><img src="/images/react_native_born.png" alt="react_native_born"></p>
+<p>React Native 基于 React 生态，对 Native 平台进行抽象，构建全新的跨平台开发体验。由于是基于 React ，所以在此它们存在一些共性的地方：</p>
+<ul>
+<li>共性<ul>
+<li>组件模型</li>
+<li>组件生命周期</li>
+<li>虚拟 DOM 及相关算法</li>
+</ul>
+</li>
+</ul>
+<p>另外，它们分别针对 Native 和 Web 所以存在一些本质上的差异：</p>
+<ul>
+<li>差异<ul>
+<li>页面渲染</li>
+<li>事件处理</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-Componet-的哲学"><a href="#3-2-Componet-的哲学" class="headerlink" title="3.2 Componet 的哲学"></a>3.2 Componet 的哲学</h4><p>在上面我们提到了组件 ，组件的功能简单来说，就是布局界面，响应交互。父组件单向传递 <code>props</code> 给子组件，控制子组件的显示，组件不能修改自身的 <code>props</code> 。父组件可以访问子组件，子组件不能访问父组件。</p>
+<p><img src="/images/react_components.png" alt="react_componets"></p>
+<p>使用组件来封装界面模块，整个界面就是一个大组件，开发过程就是不断优化和拆分界面组件、构造整个组件树的过程。</p>
+<h4 id="3-2-Redux"><a href="#3-2-Redux" class="headerlink" title="3.2 Redux"></a>3.2 Redux</h4><p>有一种观点说很可能你并不需要 Redux，但实际的线上项目大都需要 Redux 帮助处理状态管理。事实上，大多数情况，你非常需要它。</p>
+<p>Redux 整个应用只能有一个 Store，非常方便数据跨层传递，单向数据流架构设计，非常方便状态回朔。</p>
+<p><img src="/images/redux.png" alt="redux"></p>
+<p>被吐槽最多的就是随着应用越来越大，使用 Redux 你需要写非常多的 Action 和 Reducer，这部分其实可以通过约定数据格式避免掉去写这些鸡肋的函数，事实上你可以用通用函数来代替他们。面对通常的单页面应用，可以通过设计唯一的 SceneKey 隔离数据。</p>
+<p>Redux 和 React 是没有必然关系的，Redux 用于管理 state，与具体的 View 框架无关。使用 React / React Native 可以使用 <a href="https://github.com/rackt/react-redux/" target="_blank" rel="external">react-redux</a> 来绑定 React。</p>
+<h4 id="3-3-JSX-和样式"><a href="#3-3-JSX-和样式" class="headerlink" title="3.3 JSX 和样式"></a>3.3 JSX 和样式</h4><p>JSX 语法，像是在 JavaScript 代码里直接写 XML 的语法，实质上这只是一个语法糖。且目前 WebStorm 等 IDE 对 JSX 支持非常完善。</p>
+<p>通过 JSX 和 css 来实现原生 UI 的布局样式，简直是一个天才的想法，极大的简化了原生开发的复杂度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">render () &#123;</span><br><span class="line">	<span class="keyword">let</span> &#123; text &#125; = <span class="keyword">this</span>.props</span><br><span class="line">	<span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="title">View</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">Text</span>&gt;</span>&#123;text&#125;<span class="tag">&lt;/<span class="title">Text</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">View</span>&gt;</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-4-双刃剑"><a href="#3-4-双刃剑" class="headerlink" title="3.4 双刃剑"></a>3.4 双刃剑</h4><p>说起来 React Native 组件化的开发方式易于复用，有着非常快速的开发体验，React 社区也非常成熟等。不可否认也存在一些问题，比如目前版本不够稳定，目前看距离稳定版还有很远的路要走，尤其在 Android 端；另外性能相对原生较差等。我目前对它的评价是：不会成为开发主流，但亦会在社区力量下快速成长，前途呢，未卜。</p>
+<p>但如果你作为原生开发人员要从 React Native 入门前端也是一个十分不错的选择，由于相同的技术栈，学会React Native 基本免费赠送 React。Learn once, write anywhere. </p>
+</div></article></div></section><footer><div class="paginator"><a href="/2017/03/18/stardard_js/" class="next">下一篇</a></div><div style="padding:0; margin: 30px auto; width: 100%; text-align: center;"><div style="font-size: 1em; margin: 10px auto;color:#f44336;font-weight: bold"> 如果觉得本文对你有帮助，不妨请作者喝瓶养乐多<div style="padding: 0; margin: 10px auto; width: 100%; text-align: center; color:#f44336;"></div></div><button style="cursor: pointer; border: 0; outline: 0; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0; text-shadow: none; background-color: transparent; text-align: center; cursor: pointer;" id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"><span style="display: inline-block; width: 70px; height: 70px; color: #fff; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 2.5em; text-align: center; line-height: 70px; background: #f44336; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;">赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="width: auto; max-width: 50%; float: left; margin: 20px; display: inline-block;"><img id="wechat_qr" src="/images/wechat.png" alt="WechatPay"></div><div id="alipay" style="width: auto; max-width: 50%; float: right; margin: 20px; display: inline-block;"><img id="alipay_qr" src="/images/alipay.png" alt="Alipay"></div></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script><script>var cloudTieConfig = {
+    url: document.location.href,
+    sourceId: "",
+    productKey: "8b0c22fa1d324f8e9c45b4f8e5d5c325",
+    target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script><div class="copyright"><p>© 2015 - 2017 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>

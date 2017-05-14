@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2017-03-23T06:09:57.000Z</updated>
+  <updated>2017-05-14T14:14:19.000Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -14,6 +14,98 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我眼中的 React Native</title>
+    <link href="http://solart.cc/2017/05/12/understanding_react_native/"/>
+    <id>http://solart.cc/2017/05/12/understanding_react_native/</id>
+    <published>2017-05-12T14:08:55.000Z</published>
+    <updated>2017-05-14T14:14:19.000Z</updated>
+    
+    <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;solart&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;版权声明：本文为博主原创，转载请注明出处。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对 &lt;code&gt;React Native&lt;/code&gt; 的学习和开发有半年多的时间，在这个时间上我觉得可以粗浅的阐述下我理解的 &lt;code&gt;React Native&lt;/code&gt; 是怎样的一种技术栈以及我对它的一些看法。&lt;/p&gt;
+&lt;h2 id=&quot;1、DOM-与-JavaScript&quot;&gt;&lt;a href=&quot;#1、DOM-与-JavaScript&quot; class=&quot;headerlink&quot; title=&quot;1、DOM 与 JavaScript&quot;&gt;&lt;/a&gt;1、DOM 与 JavaScript&lt;/h2&gt;&lt;p&gt;简单来说， &lt;code&gt;DOM (Document Object Model)&lt;/code&gt; 是操作HTML/XML文档的一组接口，大家熟知的 Web 交互，就是由 JavaScript 操作 DOM 完成的。&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;h2&lt;/span&gt;&amp;gt;&lt;/span&gt;Title&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;h2&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;This is a paragraph&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;1-1-DOM-的缺陷&quot;&gt;&lt;a href=&quot;#1-1-DOM-的缺陷&quot; class=&quot;headerlink&quot; title=&quot;1.1 DOM 的缺陷&quot;&gt;&lt;/a&gt;1.1 DOM 的缺陷&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;直接操作 DOM 的接口不方便&lt;/li&gt;
+&lt;li&gt;需要大量的兼容性代码（针对不同的浏览器平台或版本）&lt;/li&gt;
+&lt;li&gt;性能较差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;早期的 Web 页面用户体验比较差，这与 DOM 本身的缺陷有着一定的关系。在 Web 开发中，我们总需要将变化的数据实时反应到 UI 上，这时就需要对 DOM 进行操作，除了操作不便和需要大量的兼容代码外，频繁或复杂的 DOM 操作通常也是性能瓶颈产生的原因，直到以 &lt;code&gt;JQuery&lt;/code&gt; 为代表的第三方框诞生才解决了大多数的开发痛点，但依然达不到桌面级的开发体验。&lt;/p&gt;
+&lt;h4 id=&quot;1-2-JavaScript-的成长&quot;&gt;&lt;a href=&quot;#1-2-JavaScript-的成长&quot; class=&quot;headerlink&quot; title=&quot;1.2 JavaScript 的成长&quot;&gt;&lt;/a&gt;1.2 JavaScript 的成长&lt;/h4&gt;&lt;p&gt;众所周知，由于 JavaScript 设计阶段过于仓促（据说设计者 &lt;a href=&quot;https://en.wikipedia.org/wiki/Brendan_Eich&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Brendan Eich&lt;/a&gt; 仅仅用了十天），设计并不完善，甚至有人总结了 JavaScript 的 10 个设计缺陷，而这些缺陷本身并没有扼住它的发展，随着 &lt;code&gt;ES 5&lt;/code&gt;、&lt;code&gt;ES 6&lt;/code&gt; 的相继发布 JavaScript 被越来越多的开发者认可。除了作为 Web 端开发的不二选择，还被拓展到后端开发 &lt;a href=&quot;https://nodejs.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;code&gt;Node.js&lt;/code&gt;&lt;/a&gt;，2016 年甚至被称为大前端元年。&lt;/p&gt;
+&lt;h2 id=&quot;2、前端框架-React&quot;&gt;&lt;a href=&quot;#2、前端框架-React&quot; class=&quot;headerlink&quot; title=&quot;2、前端框架 React&quot;&gt;&lt;/a&gt;2、前端框架 React&lt;/h2&gt;&lt;p&gt;随着基于 HTML 的前端界面开发变得越来越复杂，为了解决这一问题，Facebook 推出的 React 框架应运而生。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h4 id=&quot;2-1-React-特点&quot;&gt;&lt;a href=&quot;#2-1-React-特点&quot; class=&quot;headerlink&quot; title=&quot;2.1 React 特点&quot;&gt;&lt;/a&gt;2.1 React 特点&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;虚拟 DOM —— 减少真实 DOM 操作 （提升性能）&lt;/li&gt;
+&lt;li&gt;组件化 —— 封装 HTML 片段和事件处理 （易于重用，可维护性强）&lt;/li&gt;
+&lt;li&gt;封装事件 —— 将原始浏览器事件转换为 React 事件 （处理兼容性）&lt;/li&gt;
+&lt;li&gt;数据绑定 —— 监听属性和状态自动更新页面 （提升开发体验）&lt;/li&gt;
+&lt;li&gt;全屏更新 —— 渲染整个页面，但只更新需要变化的部分 （提升性能及开发体验）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;以上这些特点是 React 吸引前端开发人员的主要因素，也是它的设计理念，现在你可以看到 React 的社区是多么活跃。&lt;/p&gt;
+&lt;h4 id=&quot;2-2-React-组件和虚拟-DOM&quot;&gt;&lt;a href=&quot;#2-2-React-组件和虚拟-DOM&quot; class=&quot;headerlink&quot; title=&quot;2.2 React 组件和虚拟 DOM&quot;&gt;&lt;/a&gt;2.2 React 组件和虚拟 DOM&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/images/jsx2html.png&quot; alt=&quot;jsx2html&quot;&gt;&lt;/p&gt;
+&lt;p&gt;驱动 React 高效性能的虚拟 DOM 技术作用的最基础单元是 React 中被称为组件（Component）的东西。&lt;/p&gt;
+&lt;h2 id=&quot;3、React-Native&quot;&gt;&lt;a href=&quot;#3、React-Native&quot; class=&quot;headerlink&quot; title=&quot;3、React Native&quot;&gt;&lt;/a&gt;3、React Native&lt;/h2&gt;&lt;p&gt;React 跨平台的潜力逐渐被发掘，于是诞生了 React Native。其实从 React 拓展出来的框架还有像 &lt;a href=&quot;https://github.com/necolas/react-native-web&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;react-native-web&lt;/a&gt; （基于 React Native 的组件及 API 拓展到了 Web 端）以及适配 Windows 一些项目等。&lt;/p&gt;
+&lt;h4 id=&quot;3-1-React-Native-与-React&quot;&gt;&lt;a href=&quot;#3-1-React-Native-与-React&quot; class=&quot;headerlink&quot; title=&quot;3.1 React Native 与 React&quot;&gt;&lt;/a&gt;3.1 React Native 与 React&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/images/react_native_born.png&quot; alt=&quot;react_native_born&quot;&gt;&lt;/p&gt;
+&lt;p&gt;React Native 基于 React 生态，对 Native 平台进行抽象，构建全新的跨平台开发体验。由于是基于 React ，所以在此它们存在一些共性的地方：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;共性&lt;ul&gt;
+&lt;li&gt;组件模型&lt;/li&gt;
+&lt;li&gt;组件生命周期&lt;/li&gt;
+&lt;li&gt;虚拟 DOM 及相关算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;另外，它们分别针对 Native 和 Web 所以存在一些本质上的差异：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;差异&lt;ul&gt;
+&lt;li&gt;页面渲染&lt;/li&gt;
+&lt;li&gt;事件处理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;3-2-Componet-的哲学&quot;&gt;&lt;a href=&quot;#3-2-Componet-的哲学&quot; class=&quot;headerlink&quot; title=&quot;3.2 Componet 的哲学&quot;&gt;&lt;/a&gt;3.2 Componet 的哲学&lt;/h4&gt;&lt;p&gt;在上面我们提到了组件 ，组件的功能简单来说，就是布局界面，响应交互。父组件单向传递 &lt;code&gt;props&lt;/code&gt; 给子组件，控制子组件的显示，组件不能修改自身的 &lt;code&gt;props&lt;/code&gt; 。父组件可以访问子组件，子组件不能访问父组件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/react_components.png&quot; alt=&quot;react_componets&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用组件来封装界面模块，整个界面就是一个大组件，开发过程就是不断优化和拆分界面组件、构造整个组件树的过程。&lt;/p&gt;
+&lt;h4 id=&quot;3-2-Redux&quot;&gt;&lt;a href=&quot;#3-2-Redux&quot; class=&quot;headerlink&quot; title=&quot;3.2 Redux&quot;&gt;&lt;/a&gt;3.2 Redux&lt;/h4&gt;&lt;p&gt;有一种观点说很可能你并不需要 Redux，但实际的线上项目大都需要 Redux 帮助处理状态管理。事实上，大多数情况，你非常需要它。&lt;/p&gt;
+&lt;p&gt;Redux 整个应用只能有一个 Store，非常方便数据跨层传递，单向数据流架构设计，非常方便状态回朔。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/redux.png&quot; alt=&quot;redux&quot;&gt;&lt;/p&gt;
+&lt;p&gt;被吐槽最多的就是随着应用越来越大，使用 Redux 你需要写非常多的 Action 和 Reducer，这部分其实可以通过约定数据格式避免掉去写这些鸡肋的函数，事实上你可以用通用函数来代替他们。面对通常的单页面应用，可以通过设计唯一的 SceneKey 隔离数据。&lt;/p&gt;
+&lt;p&gt;Redux 和 React 是没有必然关系的，Redux 用于管理 state，与具体的 View 框架无关。使用 React / React Native 可以使用 &lt;a href=&quot;https://github.com/rackt/react-redux/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;react-redux&lt;/a&gt; 来绑定 React。&lt;/p&gt;
+&lt;h4 id=&quot;3-3-JSX-和样式&quot;&gt;&lt;a href=&quot;#3-3-JSX-和样式&quot; class=&quot;headerlink&quot; title=&quot;3.3 JSX 和样式&quot;&gt;&lt;/a&gt;3.3 JSX 和样式&lt;/h4&gt;&lt;p&gt;JSX 语法，像是在 JavaScript 代码里直接写 XML 的语法，实质上这只是一个语法糖。且目前 WebStorm 等 IDE 对 JSX 支持非常完善。&lt;/p&gt;
+&lt;p&gt;通过 JSX 和 css 来实现原生 UI 的布局样式，简直是一个天才的想法，极大的简化了原生开发的复杂度。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;render () &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &amp;#123; text &amp;#125; = &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;.props&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; (&lt;span class=&quot;xml&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;View&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;		&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;Text&lt;/span&gt;&amp;gt;&lt;/span&gt;&amp;#123;text&amp;#125;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;Text&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;View&lt;/span&gt;&amp;gt;&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;3-4-双刃剑&quot;&gt;&lt;a href=&quot;#3-4-双刃剑&quot; class=&quot;headerlink&quot; title=&quot;3.4 双刃剑&quot;&gt;&lt;/a&gt;3.4 双刃剑&lt;/h4&gt;&lt;p&gt;说起来 React Native 组件化的开发方式易于复用，有着非常快速的开发体验，React 社区也非常成熟等。不可否认也存在一些问题，比如目前版本不够稳定，目前看距离稳定版还有很远的路要走，尤其在 Android 端；另外性能相对原生较差等。我目前对它的评价是：不会成为开发主流，但亦会在社区力量下快速成长，前途呢，未卜。&lt;/p&gt;
+&lt;p&gt;但如果你作为原生开发人员要从 React Native 入门前端也是一个十分不错的选择，由于相同的技术栈，学会React Native 基本免费赠送 React。Learn once, write anywhere. &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot;&gt;solart&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;版权声明：本文为博主原创，转载请注明出处。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对 &lt;code&gt;React Native&lt;/code&gt; 的学习和开发有半年多的时间，在这个时间上我觉得可以粗浅的阐述下我理解的 &lt;code&gt;React Native&lt;/code&gt; 是怎样的一种技术栈以及我对它的一些看法。&lt;/p&gt;
+&lt;h2 id=&quot;1、DOM-与-JavaScript&quot;&gt;&lt;a href=&quot;#1、DOM-与-JavaScript&quot; class=&quot;headerlink&quot; title=&quot;1、DOM 与 JavaScript&quot;&gt;&lt;/a&gt;1、DOM 与 JavaScript&lt;/h2&gt;&lt;p&gt;简单来说， &lt;code&gt;DOM (Document Object Model)&lt;/code&gt; 是操作HTML/XML文档的一组接口，大家熟知的 Web 交互，就是由 JavaScript 操作 DOM 完成的。&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;h2&lt;/span&gt;&amp;gt;&lt;/span&gt;Title&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;h2&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;This is a paragraph&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;title&quot;&gt;div&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;1-1-DOM-的缺陷&quot;&gt;&lt;a href=&quot;#1-1-DOM-的缺陷&quot; class=&quot;headerlink&quot; title=&quot;1.1 DOM 的缺陷&quot;&gt;&lt;/a&gt;1.1 DOM 的缺陷&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;直接操作 DOM 的接口不方便&lt;/li&gt;
+&lt;li&gt;需要大量的兼容性代码（针对不同的浏览器平台或版本）&lt;/li&gt;
+&lt;li&gt;性能较差&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;早期的 Web 页面用户体验比较差，这与 DOM 本身的缺陷有着一定的关系。在 Web 开发中，我们总需要将变化的数据实时反应到 UI 上，这时就需要对 DOM 进行操作，除了操作不便和需要大量的兼容代码外，频繁或复杂的 DOM 操作通常也是性能瓶颈产生的原因，直到以 &lt;code&gt;JQuery&lt;/code&gt; 为代表的第三方框诞生才解决了大多数的开发痛点，但依然达不到桌面级的开发体验。&lt;/p&gt;
+&lt;h4 id=&quot;1-2-JavaScript-的成长&quot;&gt;&lt;a href=&quot;#1-2-JavaScript-的成长&quot; class=&quot;headerlink&quot; title=&quot;1.2 JavaScript 的成长&quot;&gt;&lt;/a&gt;1.2 JavaScript 的成长&lt;/h4&gt;&lt;p&gt;众所周知，由于 JavaScript 设计阶段过于仓促（据说设计者 &lt;a href=&quot;https://en.wikipedia.org/wiki/Brendan_Eich&quot;&gt;Brendan Eich&lt;/a&gt; 仅仅用了十天），设计并不完善，甚至有人总结了 JavaScript 的 10 个设计缺陷，而这些缺陷本身并没有扼住它的发展，随着 &lt;code&gt;ES 5&lt;/code&gt;、&lt;code&gt;ES 6&lt;/code&gt; 的相继发布 JavaScript 被越来越多的开发者认可。除了作为 Web 端开发的不二选择，还被拓展到后端开发 &lt;a href=&quot;https://nodejs.org/&quot;&gt;&lt;code&gt;Node.js&lt;/code&gt;&lt;/a&gt;，2016 年甚至被称为大前端元年。&lt;/p&gt;
+&lt;h2 id=&quot;2、前端框架-React&quot;&gt;&lt;a href=&quot;#2、前端框架-React&quot; class=&quot;headerlink&quot; title=&quot;2、前端框架 React&quot;&gt;&lt;/a&gt;2、前端框架 React&lt;/h2&gt;&lt;p&gt;随着基于 HTML 的前端界面开发变得越来越复杂，为了解决这一问题，Facebook 推出的 React 框架应运而生。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://solart.cc/categories/JavaScript/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>stardard JS 代码规范及 pre-commit hook</title>
