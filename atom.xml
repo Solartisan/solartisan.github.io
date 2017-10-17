@@ -17,8 +17,8 @@
   
   <entry>
     <title>React Native渲染流程浅析</title>
-    <link href="http://solart.cc/2017/08/20/react-native-render_seq/"/>
-    <id>http://solart.cc/2017/08/20/react-native-render_seq/</id>
+    <link href="http://solart.cc/2017/08/20/react-native-render-seq/"/>
+    <id>http://solart.cc/2017/08/20/react-native-render-seq/</id>
     <published>2017-08-20T07:30:55.000Z</published>
     <updated>2017-10-14T01:20:51.000Z</updated>
     
@@ -263,8 +263,8 @@
   
   <entry>
     <title>React Native拆包及热更新方案</title>
-    <link href="http://solart.cc/2017/02/22/react-native-jsbundle_patch/"/>
-    <id>http://solart.cc/2017/02/22/react-native-jsbundle_patch/</id>
+    <link href="http://solart.cc/2017/02/22/react-native-jsbundle-patch/"/>
+    <id>http://solart.cc/2017/02/22/react-native-jsbundle-patch/</id>
     <published>2017-02-22T06:25:55.000Z</published>
     <updated>2017-03-11T03:20:53.000Z</updated>
     
