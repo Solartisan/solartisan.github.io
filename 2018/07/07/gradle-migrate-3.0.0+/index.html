@@ -1,0 +1,151 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Gradle Plugin 升级迁移及构建优化 · Solartisan</title><meta name="description" content="Gradle Plugin 升级迁移及构建优化 - solart"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">Gradle Plugin 升级迁移及构建优化</h1><div class="post-info">Jul 7, 2018</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com" target="_blank" rel="external">solart</a></p>
+<blockquote>
+<p>版权声明：转载请注明出处。</p>
+</blockquote>
+<p>一直以来，Android 项目在构建速度是一大槽点，随着Android Studio 3.0 的大版本的升级使得多Module工程的构建速度加快很多。这主要依赖于 Android Plugin for Gradle 插件版本的升级，因此部分 API 发生了较大变化。本文主要是记录整个迁移过程以及聊一些常用的优化构建速度的建议，以供参考。</p>
+<blockquote>
+<p>android studio 3.1.3; gradle-4.4; gradle plugin 3.1.3 </p>
+</blockquote>
+<h2 id="1、Android-SDK-构建系统"><a href="#1、Android-SDK-构建系统" class="headerlink" title="1、Android SDK 构建系统"></a>1、Android SDK 构建系统</h2><p>在正式讲述升级迁移之前，大家应该熟悉一下 Android SDK 的构建系统，Android 构建系统编译应用资源和源代码，然后将它们打包成可供开发人员测试、部署、签署和分发的 APK。Android Studio 使用 <a href="http://www.gradle.org/" target="_blank" rel="external">Gradle</a> 这一高级构建工具包来自动化执行和管理构建流程，同时也允许开发人员定义灵活的自定义构建配置。每个构建配置均可自行定义一组代码和资源，同时对所有应用版本共有的部分加以重复利用。Android Plugin for Gradle 与这个构建工具包协作，共同提供专用于构建和测试 Android 应用的流程和可配置设置。 </p>
+<h4 id="1-1-构建流程"><a href="#1-1-构建流程" class="headerlink" title="1.1 构建流程"></a>1.1 构建流程</h4><p><img src="/images/build_process_2x.png" alt="rn_js_element_comp_render_seq"></p>
+<p>如上图所示，典型 Android 应用模块的构建流程通常依循下列步骤：</p>
+<ul>
+<li><p>编译器将我们的源代码转换成 DEX（Dalvik Executable) 文件（其中包括运行在 Android 设备上的字节码），将所有其他内容转换成已编译资源。</p>
+</li>
+<li><p>APK 打包器将 DEX 文件和已编译资源合并成单个 APK。不过，必须先签署 APK，才能将应用安装并部署到 Android 设备上。</p>
+</li>
+<li><p>APK 打包器使用调试或发布密钥库签署我们的 APK：</p>
+<ul>
+<li><p>如果我们构建的是调试版本的应用（即专用于测试和分析的应用），打包器会使用调试密钥库签署我们的应用。Android Studio 自动使用调试密钥库配置新项目。</p>
+</li>
+<li><p>如果我们构建的是打算向外发布的发布版本应用，打包器会使用发布密钥库签署我们的应用。要创建发布密钥库，请阅读<a href="https://developer.android.com/studio/publish/app-signing.html#studio" target="_blank" rel="external">在 Android Studio 中签署我们的应用</a>。</p>
+</li>
+</ul>
+</li>
+<li><p>在生成最终 APK 之前，打包器会使用 <a href="https://developer.android.com/studio/command-line/zipalign.html" target="_blank" rel="external">zipalign</a> 工具对应用进行优化，减少其在设备上运行时的内存占用。</p>
+<p>构建流程结束时，我们可以获得可用来进行部署、测试的调试 APK，或者可用来发布给外部用户的发布 APK。</p>
+</li>
+</ul>
+<h4 id="1-2-分析构建耗时"><a href="#1-2-分析构建耗时" class="headerlink" title="1.2 分析构建耗时"></a>1.2 分析构建耗时</h4><p>在构建项目时，分析构建流程的耗时有助于我们定向的优化构建脚本，我们可以通过以下方式来查看构建耗时：</p>
+<ul>
+<li>清空构建，相当于初始化，这样可以确保能分析到完整的项目构建过程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用下面命令执行构建，并且生成构建过程耗时报告</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew --profile --recompile-scripts --offline --rerun-tasks assembleDebug</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>--profile</code>：启用分析。</li>
+<li><code>--recompile-scripts</code>：在绕过缓存时强制重新编译脚本。</li>
+<li><code>--offline</code>：禁止 Gradle 提取在线依赖项。这样可以确保 Gradle 在尝试更新依赖项时引起的任何延迟都不会干扰我们的分析数据。我们应当已将项目构建一次，以便确保 Gradle 已经下载和缓存我们的依赖项。</li>
+<li><code>--rerun-tasks</code>：强制 Gradle 重新运行所有任务并忽略任何任务优化。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>执行完成后在项目 <code>/build/reports/profile/</code> 目录下查看分析报告，报告是网页形式，推荐使用chrome浏览器查看。</p>
+<a id="more"></a>
+<p><img src="/images/build_report.png" alt="build_report"></p>
+</li>
+</ul>
+<h2 id="2、迁移到Android-Plugin-for-Gradle-3-0-0"><a href="#2、迁移到Android-Plugin-for-Gradle-3-0-0" class="headerlink" title="2、迁移到Android Plugin for Gradle 3.0.0+"></a>2、迁移到Android Plugin for Gradle 3.0.0+</h2><p>使用 2.x 版本的 Android Plugin for Gradle 升级是必须要经历 的阵痛，相比升级后的构建效率这点代价还是非常值得的。</p>
+<h4 id="2-1-更新-Gradle-版本"><a href="#2-1-更新-Gradle-版本" class="headerlink" title="2.1 更新 Gradle 版本"></a>2.1 更新 Gradle 版本</h4><p>新 Android 插件要求 Gradle 版本 <code>4.1-rc-1</code> 或更高版本， 如果我们正在使用 Android Studio 3.0 Beta 1 或更高版本打开现有项目，请按照提示操作，将现有项目自动更新到兼容版本的 Gradle。</p>
+<p>要手动更新 Gradle，请更新 <code>gradle-wrapper.properties</code> 中的网址，本文以 4.4 的版本为例，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-4.4-all.zip</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-应用插件"><a href="#2-2-应用插件" class="headerlink" title="2.2 应用插件"></a>2.2 应用插件</h4><p>要手动更新的项目，请包含 Maven 存储区并在项目级 <code>build.gradle</code> 文件中更改插件版本，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buildscript &#123;&#10;    repositories &#123;&#10;        ...&#10;        // You need to add the following repository to download the&#10;        // new plugin.&#10;        google()&#10;    &#125;&#10;&#10;    dependencies &#123;&#10;        classpath &#39;com.android.tools.build:gradle:3.1.3&#39;&#10;        ...&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-使用-FlavorDimensions-进行变体感知依赖项管理"><a href="#2-3-使用-FlavorDimensions-进行变体感知依赖项管理" class="headerlink" title="2.3 使用 FlavorDimensions 进行变体感知依赖项管理"></a>2.3 使用 FlavorDimensions 进行变体感知依赖项管理</h4><p>插件 3.0.0+ 包含一项新的依赖机制，这项新的依赖机制官方中文版翻译为：变体感知依赖项管理，对应原文中  <code>variant-aware dependency resolution</code> 这个概念，官方对 <code>FlavorDimensions</code> 的翻译为<code>风味维度</code>，个人感觉是蜜汁微笑，可能翻译为<code>特征维度</code>更好理解一些，风味是什么鬼？</p>
+<p>体会一下英文原文可能会更准确的理解这个拗口的概念。</p>
+<blockquote>
+<p>Android plugin 3.0.0 and higher use <code>variant-aware dependency resolution</code> to automatically match the variant of the producer to that of the consumer. That is, when publishing a module to another local module, the plugin no longer respects this property when determining which version Of the module to publish to the consumer.</p>
+</blockquote>
+<p>抛开这些概念不说，升级后我们可能会遇到这样的问题：</p>
+<blockquote>
+<p>All flavors must now belong to a named flavor dimension. Learn more at <a href="https://d.android.com/r/tools/flavorDimensions-missing-error-message.html" target="_blank" rel="external">https://d.android.com/r/tools/flavorDimensions-missing-error-message.html</a></p>
+</blockquote>
+<p>所有的特点现在必须属于一个已命名的特征维度。官网提供的解决方式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Specifies a flavor dimension.&#10;flavorDimensions &#34;color&#34;&#10;&#10;productFlavors &#123;&#10;     red &#123;&#10;      // Assigns this product flavor to the &#39;color&#39; flavor dimension.&#10;      // This step is optional if you are using only one dimension.&#10;      dimension &#34;color&#34;&#10;      ...&#10;    &#125;&#10;&#10;    blue &#123;&#10;      dimension &#34;color&#34;&#10;      ...&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>在defaultConfig里面加入flavorDimensions，定义特征维度（也就是命名特征维度）。 然后在产品风味中指定所属的特征维度。</p>
+<p>这里要多说一点的是定义一个特征维度是发挥不出功力的，如果定义两个以上的特征维度，这个概念很玄妙的功力才能体现得出来。</p>
+<h4 id="2-4-使用新依赖项配置"><a href="#2-4-使用新依赖项配置" class="headerlink" title="2.4 使用新依赖项配置"></a>2.4 使用新依赖项配置</h4><p>Android 插件 3.0.0 正在迁移到这些新依赖项配置。 要迁移我们的项目，只需更新我们的依赖项以使用新配置，而非已弃用配置，如下表中所列。</p>
+<table>
+<thead>
+<tr>
+<th>新配置</th>
+<th>已弃用配置</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>implementation</code></td>
+<td><code>compile</code></td>
+<td>依赖项在编译时对模块可用，并且仅在运行时对模块的消费者可用。 对于大型多项目构建，使用 <code>implementation</code> 而不是 <code>api</code>/<code>compile</code> 可以<strong>显著缩短构建时间</strong>，因为它可以减少构建系统需要重新编译的项目量。 大多数应用和测试模块都应使用此配置。</td>
+</tr>
+<tr>
+<td><code>api</code></td>
+<td><code>compile</code></td>
+<td>依赖项在编译时对模块可用，并且在编译时和运行时还对模块的消费者可用。 此配置的行为类似于 <code>compile</code>（现在已弃用），一般情况下，我们应当仅在库模块中使用它。 应用模块应使用 <code>implementation</code>，除非我们想要将其 API 公开给单独的测试模块。</td>
+</tr>
+<tr>
+<td><code>compileOnly</code></td>
+<td><code>provided</code></td>
+<td>依赖项仅在编译时对模块可用，并且在编译或运行时对其消费者不可用。 此配置的行为类似于 <code>provided</code>（现在已弃用）。</td>
+</tr>
+<tr>
+<td><code>runtimeOnly</code></td>
+<td><code>apk</code></td>
+<td>依赖项仅在运行时对模块及其消费者可用。 此配置的行为类似于 <code>apk</code>（现在已弃用）。</td>
+</tr>
+</tbody>
+</table>
+<p>就像当前稳定版本的 Android 插件一样，上面的配置对风味或构建类型特定的依赖项可用。 例如，我们可以使用 <code>api</code> 让依赖项对所有变体可用，也可以使用 <code>redApi</code> 让其仅对模块的 <code>red</code> 变体可用。</p>
+<p>对于 Gradle Plugin 2.x 版本的时期，一点代码的改动可能会引起整个工程的重新编译，这将是多么悲催，根本原因就是 gradle 压根不知道暴露的接口可以通过一个接一个的依赖传递影响整个工程。之前使用大家都是通过 <code>compile</code> 来管理依赖项，升级后 build.gradle 需要将废弃的 compile 的替换为 <code>implementation</code> 或 <code>api</code> 。</p>
+<p><strong>Android Gradle plugin 3.0 依赖项优化解决方案</strong><br>最新版的Gradle plugin需要我们指出一个module的接口是否对外暴露其依赖lib的接口。基于此，可以让项目构建时，gradle可以判断哪个需要重新编译。因此，老版本的构建关键字compile被废弃了，而是改成了这两个：</p>
+<ul>
+<li>api：同compile作用一样，即认为本module将会泄露其依赖的module的内容。</li>
+<li>implementation：本module不会通过自身的接口向外部暴露其依赖module的内容。<br>由此，我们可以明确的告诉gradle去重新编译一个module，若是这个使用的module的接口发生变化的话。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;&#10;    // &#24403; foo &#25509;&#21475;&#21457;&#29983;&#21464;&#21270;&#26102;&#65292;&#38656;&#35201;&#37325;&#26032;&#32534;&#35793;&#26412; module &#20197;&#21450;&#25152;&#26377;&#20351;&#29992;&#26412; module &#30340; module&#10;    api project(&#39;:foo&#39;)&#10;    // &#20165;&#24403; camera &#21457;&#29983;&#21464;&#21270;&#26102;&#65292;&#37325;&#26032;&#32534;&#35793;&#26412;module&#10;    implementation project(&#39;:camera&#39;)&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>迁移指南</strong><br>理论上，我们可以将原来工程中的compile完全替换为现在的api，但是一旦依赖发生变化，将会使所有的module重新编译，造成编译过长。</p>
+<p>所以更好的方式就是使用implementation来进行依赖，这会大大改善工程的构建时间。只有我们明确要向外部暴露所依赖lib的接口时，才需要使用api依赖，整体来说，会减少很多重新编译。这一点，在官方指南中说的比较明确。</p>
+<h2 id="3、优化构建速度"><a href="#3、优化构建速度" class="headerlink" title="3、优化构建速度"></a>3、优化构建速度</h2><p>长构建时间会降低开发效率，这就需要通过一些辅助手段以及对项目依赖的梳理来改善这个问题。通常来说，我们只需要经过以上的升级，善用 <code>implementation</code> 已经可以明显提高编译速度，但仍然可能通过以下的手段进一步提升编译速度。</p>
+<h4 id="3-1-保持工具处于最新状态"><a href="#3-1-保持工具处于最新状态" class="headerlink" title="3.1 保持工具处于最新状态"></a>3.1 保持工具处于最新状态</h4><p>Android 工具几乎在每一次更新中都会获得构建优化和新功能，要充分利用最新优化，请保持以下工具处于最新状态：</p>
+<ul>
+<li><a href="https://developer.android.com/studio/intro/update.html" target="_blank" rel="external">Android Studio 和 SDK 工具</a></li>
+<li><a href="https://developer.android.com/studio/releases/gradle-plugin.html" target="_blank" rel="external">Android Plugin for Gradle</a></li>
+</ul>
+<p>####3.2 避免编译不必要的资源 </p>
+<p>避免编译和打包我们没有测试的资源（例如其他语言本和屏幕密度资源）。为此，我们可以仅为<code>开发版</code>指定一个语言资源和屏幕密度，如下面的示例中所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android &#123;&#10;  ...&#10;  productFlavors &#123;&#10;    dev &#123;&#10;      ...&#10;      // The following configuration limits the &#34;dev&#34; flavor to using&#10;      // English stringresources and xxhdpi screen-density resources.&#10;      resConfigs &#34;en&#34;, &#34;xxhdpi&#34;&#10;    &#125;&#10;    ...&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-3-将静态构建配置值与调试构建结合使用"><a href="#3-3-将静态构建配置值与调试构建结合使用" class="headerlink" title="3.3 将静态构建配置值与调试构建结合使用"></a>3.3 将静态构建配置值与调试构建结合使用</h4><p>始终为进入 <code>manifest 文件</code>的属性使用静态/硬编码值，或者为我们的调试构建类型使用资源文件。如果我们的 <code>manifest 文件</code>或应用资源中的值需要随着每一个构建更新，Instant Run 将无法执行代码交换，它必须构建和安装新的 APK。</p>
+<p>例如，在我们每次想要运行更改时，使用动态版本代码、版本名称、资源或任何其他可以更改 manifest 文件的构建逻辑都需要一个完整的 APK 构建 - 即使实际更改仅需要一个热交换，也是如此。如果我们的构建配置需要此类动态属性，那么将其隔离到我们的发布构建变体中并让值对我们的调试构建保持静态，如下面的 <code>build.gradle</code> 文件所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int MILLIS_IN_MINUTE = 1000 * 60&#10;int minutesSinceEpoch = System.currentTimeMillis() / MILLIS_IN_MINUTE&#10;&#10;android &#123;&#10;    ...&#10;    defaultConfig &#123;&#10;        // Making either of these two values dynamic in the defaultConfig will&#10;        // require a full APK build and reinstallation because the AndroidManifest.xml&#10;        // must be updated (which is not supported by Instant Run).&#10;        versionCode 1&#10;        versionName &#34;1.0&#34;&#10;        ...&#10;    &#125;&#10;&#10;    // The defaultConfig values above are fixed, so your incremental builds don&#39;t&#10;    // need to rebuild the manifest (and therefore the whole APK, slowing build times).&#10;    // But for release builds, it&#39;s okay. So the following script iterates through&#10;    // all the known variants, finds those that are &#34;release&#34; build types, and&#10;    // changes those properties to something dynamic.&#10;    applicationVariants.all &#123; variant -&#62;&#10;        if (variant.buildType.name == &#34;release&#34;) &#123;&#10;            variant.mergedFlavor.versionCode = minutesSinceEpoch;&#10;            variant.mergedFlavor.versionName = minutesSinceEpoch + &#34;-&#34; + variant.flavorName;&#10;        &#125;&#10;    &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-4-使用静态依赖项版本"><a href="#3-4-使用静态依赖项版本" class="headerlink" title="3.4 使用静态依赖项版本"></a>3.4 使用静态依赖项版本</h4><p>在 <code>build.gradle</code> 文件中声明依赖项时，我们应当避免在结尾将版本号与加号一起使用，例如 <code>&#39;com.android.tools.build:gradle:2.+&#39;</code>。使用动态版本号可能导致意外版本更新和难以解析版本差异，并因 Gradle 检查有无更新而减慢构建速度。我们应改为使用静态/硬编码版本号。</p>
+<h4 id="3-5-配置-dexOptions-和启用库预-dexing"><a href="#3-5-配置-dexOptions-和启用库预-dexing" class="headerlink" title="3.5 配置 dexOptions 和启用库预 dexing"></a>3.5 配置 dexOptions 和启用库预 dexing</h4><p>Android 插件提供了 <a href="http://google.github.io/android-gradle-dsl/current/com.android.build.gradle.internal.dsl.DexOptions.html" target="_blank" rel="external"><code>dexOptions</code></a> 代码块，因此，我们可以配置以下 DEX 构建属性，这样可能会加快构建速度：</p>
+<ul>
+<li><code>preDexLibraries</code>：声明是否预 dex 库依赖项以加快我们的增量构建速度。由于此功能可能减慢我们的构建的速度，我们可能需要为持续性集成服务器停用此功能。</li>
+<li><code>maxProcessCount</code>：设置运行 dex-in-process 时要使用的最大线程数量。默认值为 4。</li>
+<li><code>javaMaxHeapSize</code>：设置 DEX 编译器的最大堆大小。不过，我们应当增加 Gradle 的堆大小（启用 dex-in-process 时，将与 DEX 编译器共享），而不是设置此属性。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android &#123;&#10;  ...&#10;  dexOptions &#123;&#10;    preDexLibraries true&#10;    maxProcessCount 8&#10;    // Instead of setting the heap size for the DEX process, increase Gradle&#39;s&#10;    // heap size to enable dex-in-process. To learm more, read the next section.&#10;    // javaMaxHeapSize &#34;2048m&#34;&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>我们应当递增这些设置的值来试验它们并通过<a href="https://developer.android.com/studio/build/optimize-your-build#profile" target="_blank" rel="external">分析我们的构建</a>观察效果。如果我们向进程分配过多的资源，性能可能会下降。</p>
+<blockquote>
+<p><strong>注</strong>：如果 Gradle 后台进程已在运行，我们需要先停止此进程，然后使用新设置进行初始化。我们可以选择 <strong>View &gt; Tool Windows &gt; Terminal</strong> 并输入 <code>gradlew --stop</code> 命令来终止 Gradle 后台程序</p>
+</blockquote>
+<h4 id="3-6-将图像转换成-WebP"><a href="#3-6-将图像转换成-WebP" class="headerlink" title="3.6 将图像转换成 WebP"></a>3.6 将图像转换成 WebP</h4><p><a href="https://developers.google.com/speed/webp/" target="_blank" rel="external">WebP</a> 是一种既可以提供有损压缩（像 JPEG 一样）也可以提供透明度（像 PNG 一样）的图片文件格式，不过与 JPEG 或 PNG 相比，这种格式可以提供更好的压缩。降低图片文件大小可以加快构建的速度（无需执行构建时压缩），尤其是在我们的应用使用大量图像资源时，更是如此。不过，在对 WebP 图像进行解压缩时，我们可能会注意到设备的 CPU 使用率有小幅上升。使用 Android Studio 时，我们可以轻松地<a href="https://developer.android.com/studio/write/convert-webp.html#convert_images_to_webp" target="_blank" rel="external">将图像转换成 WebP</a>。</p>
+<h4 id="3-7-停用-PNG-处理"><a href="#3-7-停用-PNG-处理" class="headerlink" title="3.7 停用 PNG 处理"></a>3.7 停用 PNG 处理</h4><p>如果我们无法（或者不想）<a href="https://developer.android.com/studio/write/convert-webp.html#convert_images_to_webp" target="_blank" rel="external">将 PNG 图像转换成 WebP</a>，仍可以通过在每次构建应用时停用自动图像压缩的方式加快构建速度。要停用此优化，请将以下代码添加到我们的 build.gradle 文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android &#123;&#10;  ...&#10;  aaptOptions &#123;&#10;    cruncherEnabled false&#10;  &#125;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>在构建发布版本的应用时，我们需要将此属性手动设置为 <code>true</code>。</p>
+<p>希望以上的内容对你能有些帮助。</p>
+</div></article></div></section><footer><div class="paginator"><a href="/2017/08/20/react-native-render-seq/" class="next">下一篇</a></div><div style="padding:0; margin: 30px auto; width: 100%; text-align: center;"><div style="font-size: 1em; margin: 10px auto;color:#f44336;font-weight: bold"> 如果觉得本文对你有帮助，不妨请作者喝瓶养乐多<div style="padding: 0; margin: 10px auto; width: 100%; text-align: center; color:#f44336;"></div></div><button style="cursor: pointer; border: 0; outline: 0; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0; text-shadow: none; background-color: transparent; text-align: center; cursor: pointer;" id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"><span style="display: inline-block; width: 70px; height: 70px; color: #fff; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 2.5em; text-align: center; line-height: 70px; background: #f44336; -moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;">赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="width: auto; max-width: 50%; float: left; margin: 20px; display: inline-block;"><img id="wechat_qr" src="/images/wechat.png" alt="WechatPay"></div><div id="alipay" style="width: auto; max-width: 50%; float: right; margin: 20px; display: inline-block;"><img id="alipay_qr" src="/images/alipay.png" alt="Alipay"></div></div></div><div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div><script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script><script>var cloudTieConfig = {
+    url: document.location.href,
+    sourceId: "",
+    productKey: "8b0c22fa1d324f8e9c45b4f8e5d5c325",
+    target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script><div class="copyright"><p>© 2015 - 2018 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>

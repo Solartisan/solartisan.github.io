@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://solart.cc/2018/07/07/gradle-migrate-3.0.0+/</loc>
+    
+    <lastmod>2018-07-07T05:32:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://solart.cc/2017/08/20/react-native-render-seq/</loc>
     
     <lastmod>2017-10-14T01:20:51.000Z</lastmod>

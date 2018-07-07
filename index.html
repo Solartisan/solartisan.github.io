@@ -1,4 +1,50 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Solartisan</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/08/20/react-native-render-seq/" class="post-title-link">React Native渲染流程浅析</a></h2><div class="post-info">Aug 20, 2017</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">solart</a></p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Solartisan</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2018/07/07/gradle-migrate-3.0.0+/" class="post-title-link">Gradle Plugin 升级迁移及构建优化</a></h2><div class="post-info">Jul 7, 2018</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">solart</a></p>
+<blockquote>
+<p>版权声明：转载请注明出处。</p>
+</blockquote>
+<p>一直以来，Android 项目在构建速度是一大槽点，随着Android Studio 3.0 的大版本的升级使得多Module工程的构建速度加快很多。这主要依赖于 Android Plugin for Gradle 插件版本的升级，因此部分 API 发生了较大变化。本文主要是记录整个迁移过程以及聊一些常用的优化构建速度的建议，以供参考。</p>
+<blockquote>
+<p>android studio 3.1.3; gradle-4.4; gradle plugin 3.1.3 </p>
+</blockquote>
+<h2 id="1、Android-SDK-构建系统"><a href="#1、Android-SDK-构建系统" class="headerlink" title="1、Android SDK 构建系统"></a>1、Android SDK 构建系统</h2><p>在正式讲述升级迁移之前，大家应该熟悉一下 Android SDK 的构建系统，Android 构建系统编译应用资源和源代码，然后将它们打包成可供开发人员测试、部署、签署和分发的 APK。Android Studio 使用 <a href="http://www.gradle.org/">Gradle</a> 这一高级构建工具包来自动化执行和管理构建流程，同时也允许开发人员定义灵活的自定义构建配置。每个构建配置均可自行定义一组代码和资源，同时对所有应用版本共有的部分加以重复利用。Android Plugin for Gradle 与这个构建工具包协作，共同提供专用于构建和测试 Android 应用的流程和可配置设置。 </p>
+<h4 id="1-1-构建流程"><a href="#1-1-构建流程" class="headerlink" title="1.1 构建流程"></a>1.1 构建流程</h4><p><img src="/images/build_process_2x.png" alt="rn_js_element_comp_render_seq"></p>
+<p>如上图所示，典型 Android 应用模块的构建流程通常依循下列步骤：</p>
+<ul>
+<li><p>编译器将我们的源代码转换成 DEX（Dalvik Executable) 文件（其中包括运行在 Android 设备上的字节码），将所有其他内容转换成已编译资源。</p>
+</li>
+<li><p>APK 打包器将 DEX 文件和已编译资源合并成单个 APK。不过，必须先签署 APK，才能将应用安装并部署到 Android 设备上。</p>
+</li>
+<li><p>APK 打包器使用调试或发布密钥库签署我们的 APK：</p>
+<ul>
+<li><p>如果我们构建的是调试版本的应用（即专用于测试和分析的应用），打包器会使用调试密钥库签署我们的应用。Android Studio 自动使用调试密钥库配置新项目。</p>
+</li>
+<li><p>如果我们构建的是打算向外发布的发布版本应用，打包器会使用发布密钥库签署我们的应用。要创建发布密钥库，请阅读<a href="https://developer.android.com/studio/publish/app-signing.html#studio">在 Android Studio 中签署我们的应用</a>。</p>
+</li>
+</ul>
+</li>
+<li><p>在生成最终 APK 之前，打包器会使用 <a href="https://developer.android.com/studio/command-line/zipalign.html">zipalign</a> 工具对应用进行优化，减少其在设备上运行时的内存占用。</p>
+<p>构建流程结束时，我们可以获得可用来进行部署、测试的调试 APK，或者可用来发布给外部用户的发布 APK。</p>
+</li>
+</ul>
+<h4 id="1-2-分析构建耗时"><a href="#1-2-分析构建耗时" class="headerlink" title="1.2 分析构建耗时"></a>1.2 分析构建耗时</h4><p>在构建项目时，分析构建流程的耗时有助于我们定向的优化构建脚本，我们可以通过以下方式来查看构建耗时：</p>
+<ul>
+<li>清空构建，相当于初始化，这样可以确保能分析到完整的项目构建过程</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew clean</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用下面命令执行构建，并且生成构建过程耗时报告</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./gradlew --profile --recompile-scripts --offline --rerun-tasks assembleDebug</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><code>--profile</code>：启用分析。</li>
+<li><code>--recompile-scripts</code>：在绕过缓存时强制重新编译脚本。</li>
+<li><code>--offline</code>：禁止 Gradle 提取在线依赖项。这样可以确保 Gradle 在尝试更新依赖项时引起的任何延迟都不会干扰我们的分析数据。我们应当已将项目构建一次，以便确保 Gradle 已经下载和缓存我们的依赖项。</li>
+<li><code>--rerun-tasks</code>：强制 Gradle 重新运行所有任务并忽略任何任务优化。</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>执行完成后在项目 <code>/build/reports/profile/</code> 目录下查看分析报告，报告是网页形式，推荐使用chrome浏览器查看。</p></div><a href="/2018/07/07/gradle-migrate-3.0.0+/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2017/08/20/react-native-render-seq/" class="post-title-link">React Native渲染流程浅析</a></h2><div class="post-info">Aug 20, 2017</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">solart</a></p>
 <blockquote>
 <p>版权声明：本文图文为博主原创，转载请注明出处。</p>
 </blockquote>
@@ -69,16 +115,4 @@
 </blockquote>
 <p>这段时间在研究插件化相关的技术，追根溯源，所以干脆把Apk的安装流程梳理了一遍，与大家共享，望指正！</p>
 <p>本文基于Android 5.1的源码，分析Apk安装流程。</p>
-<p>Apk是Android Pakage的缩写，即Android安装包，Apk文件其实是zip格式，一般包含一个或多个dex文件、resources.arsc、AndroidManifest.xml、res目录、META-INF目录及包含so库的lib目录，这里就不在啰嗦。</p></div><a href="/2016/10/30/install_apk/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/08/20/launch_app/" class="post-title-link">Android应用启动流程分析</a></h2><div class="post-info">Aug 20, 2016</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">solart</a></p>
-<blockquote>
-<p>版权声明：本文图文为博主原创，转载请注明出处。</p>
-</blockquote>
-<p>大家有没有好奇过点击<code>Launcher</code>图标时，到唤起一个应用页面，这个流程会是怎么样的？本文的目的就是尽可能梳理清楚流程，能够让大家对整个流程有一个相对清晰的认知。</p>
-<p>在我们开始之前，希望您能最好已经满足以下条件：</p>
-<ul>
-<li>有一份编译后的Android源码（亲自动手实践才会有更深入的理解）</li>
-</ul>
-<ul>
-<li>对Binder机制有一定的了解</li>
-</ul>
-<p>本文启动流程分析基于Android 5.1的源码。为什么是5.1的源码呢？因为手边编译完的代码只有这个版本…另外，用什么版本的源码并不重要，大体的流程并无本质上的区别，仅仅是实现细节的调整，找一个你熟悉的版本就好。</p></div><a href="/2016/08/20/launch_app/" class="read-more">...阅读全文</a></article></li></ul></section><footer><div class="paginator"><a href="/page/2/" class="next">下一页</a></div><div class="copyright"><p>© 2015 - 2017 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>
+<p>Apk是Android Pakage的缩写，即Android安装包，Apk文件其实是zip格式，一般包含一个或多个dex文件、resources.arsc、AndroidManifest.xml、res目录、META-INF目录及包含so库的lib目录，这里就不在啰嗦。</p></div><a href="/2016/10/30/install_apk/" class="read-more">...阅读全文</a></article></li></ul></section><footer><div class="paginator"><a href="/page/2/" class="next">下一页</a></div><div class="copyright"><p>© 2015 - 2018 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>
