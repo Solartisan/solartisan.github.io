@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://solart.cc/"/>
-  <updated>2020-06-16T16:07:15.329Z</updated>
+  <updated>2020-06-16T16:26:25.418Z</updated>
   <id>http://solart.cc/</id>
   
   <author>
@@ -20,13 +20,13 @@
     <link href="http://solart.cc/2020/06/16/understand_rxjava2/"/>
     <id>http://solart.cc/2020/06/16/understand_rxjava2/</id>
     <published>2020-06-16T09:36:08.000Z</published>
-    <updated>2020-06-16T16:07:15.329Z</updated>
+    <updated>2020-06-16T16:26:25.418Z</updated>
     
     <content type="html">&lt;p&gt;作者：&lt;a href=&quot;mailto://imilko7@gmail.com&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;solart&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;相信 &lt;code&gt;RxJava&lt;/code&gt; 是大家业务中用到比较多的一个依赖库，对于 RxJava 种类繁多的操作符，大多数同学都表示很是头疼，也有不少同学陷入了学习操作符不能停的怪圈。文章似乎有些标题党的嫌疑，根据我的理解画出两幅图相信可以让大家理解其核心原理，稍后不要吝啬，请叫我灵魂画手😄！&lt;/p&gt;
+&lt;p&gt;文章似乎有些标题党的嫌疑，根据我的理解画出两幅图相信可以让大家理解 RxJava2 的核心原理，稍后不要吝啬，请叫我灵魂画手😄！相信 &lt;code&gt;RxJava&lt;/code&gt; 是大家业务中用到比较多的一个依赖库，RxJava 的强大之处在于它改变了程序员的编程习惯，相比较其他的开源项目，Rxjava 是最弯弯绕的一个，但是也是理解后最清晰的一个。对于 RxJava 种类繁多的操作符，大多数同学都表示很是头疼，也有不少同学陷入了学习操作符不能停的怪圈。&lt;/p&gt;
 &lt;p&gt;操作符要不要学，当然要，但是如果能理解 RxJava 的核心，操作符的使用就像是学会九阳神功的张无忌学招数，必定是手到擒来。&lt;/p&gt;
 &lt;h3 id=&quot;这篇文章我会讲些什么&quot;&gt;&lt;a href=&quot;#这篇文章我会讲些什么&quot; class=&quot;headerlink&quot; title=&quot;这篇文章我会讲些什么&quot;&gt;&lt;/a&gt;这篇文章我会讲些什么&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;RxJava2 基本的运行流程&lt;/li&gt;
@@ -91,7 +91,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;版权声明：本文图文为博主原创，转载请注明出处。&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;相信 &lt;code&gt;RxJava&lt;/code&gt; 是大家业务中用到比较多的一个依赖库，对于 RxJava 种类繁多的操作符，大多数同学都表示很是头疼，也有不少同学陷入了学习操作符不能停的怪圈。文章似乎有些标题党的嫌疑，根据我的理解画出两幅图相信可以让大家理解其核心原理，稍后不要吝啬，请叫我灵魂画手😄！&lt;/p&gt;
+&lt;p&gt;文章似乎有些标题党的嫌疑，根据我的理解画出两幅图相信可以让大家理解 RxJava2 的核心原理，稍后不要吝啬，请叫我灵魂画手😄！相信 &lt;code&gt;RxJava&lt;/code&gt; 是大家业务中用到比较多的一个依赖库，RxJava 的强大之处在于它改变了程序员的编程习惯，相比较其他的开源项目，Rxjava 是最弯弯绕的一个，但是也是理解后最清晰的一个。对于 RxJava 种类繁多的操作符，大多数同学都表示很是头疼，也有不少同学陷入了学习操作符不能停的怪圈。&lt;/p&gt;
 &lt;p&gt;操作符要不要学，当然要，但是如果能理解 RxJava 的核心，操作符的使用就像是学会九阳神功的张无忌学招数，必定是手到擒来。&lt;/p&gt;
 &lt;h3 id=&quot;这篇文章我会讲些什么&quot;&gt;&lt;a href=&quot;#这篇文章我会讲些什么&quot; class=&quot;headerlink&quot; title=&quot;这篇文章我会讲些什么&quot;&gt;&lt;/a&gt;这篇文章我会讲些什么&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;RxJava2 基本的运行流程&lt;/li&gt;
