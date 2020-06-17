@@ -12,7 +12,7 @@
 <p>安装过程：复制apk安装包到/data/app目录下，解压并扫描安装包，向资源管理器注入apk资源，解析AndroidManifest文件，并在/data/data目录下创建对应的应用数据目录，然后针对dalvik/art环境优化dex文件，保存到dalvik-cache目录，将AndroidManifest文件解析出的组件、权限注册到PackageManagerService，完成后发送广播。</p>
 <h2 id="2、安装时序图"><a href="#2、安装时序图" class="headerlink" title="2、安装时序图"></a>2、安装时序图</h2><p>上图太过笼统，不利于了解细节，这里整理出一张时序图，以便于分析。</p>
 <p><img src="/images/install_apk_seq.png" alt="install_apk_seq"></p>
-<p><a href="/images/install_apk_seq.png">点击放大查看高清无码大图</a></p>
+<p><a href="http://solart.cc/images/install_apk_seq.png" target="_blank">点击放大查看高清无码大图</a></p>
 <blockquote>
 <p>说明：时序图中划分为三个部分：PackageInstaller进程、System进程、DefaultContainerService进程，重点关注System进程中的PackageManagerService。</p>
 <p><strong>PackageManagerService</strong>：PMS是Android中最核心的服务之一，主要负责对系统的apk进行管理，以及对四大组件的管理。</p>
