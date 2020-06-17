@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://solart.cc/2020/06/16/understand_rxjava2/</loc>
+    
+    <lastmod>2020-06-17T03:11:02.798Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://solart.cc/2016/08/20/launch_app/</loc>
     
     <lastmod>2020-06-17T02:52:30.744Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://solart.cc/2016/10/30/install_apk/</loc>
     
     <lastmod>2020-06-17T02:51:55.835Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://solart.cc/2020/06/16/understand_rxjava2/</loc>
-    
-    <lastmod>2020-06-17T02:46:55.792Z</lastmod>
     
   </url>
   
