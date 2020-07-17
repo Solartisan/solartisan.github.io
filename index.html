@@ -1,4 +1,26 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Solartisan</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2020/07/02/trie_queue/" class="post-title-link">前缀树 + 队列处理通配符查找</a></h2><div class="post-info">Jul 2, 2020</div><div class="post-content"></div><a href="/2020/07/02/trie_queue/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2020/06/16/understand_rxjava2/" class="post-title-link">两张图彻底理解 RxJava2 的核心原理</a></h2><div class="post-info">Jun 16, 2020</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">blue</a></p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Solartisan</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="http://solart.cc/atom.xml" title="Solartisan"></head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/logo.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link active">HOME</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://github.com/solartisan" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><section class="container"><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2020/07/17/nested_ceiling_effect/" class="post-title-link">也许是最贴近京东体验的嵌套滑动吸顶效果</a></h2><div class="post-info">Jul 17, 2020</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">blue</a></p>
+<p>v 信号: <code>Mojitok8275</code></p>
+<blockquote>
+<p>版权声明：本文图文为博主原创，转载请注明出处。</p>
+</blockquote>
+<p>吸顶效果是各家 App 或多或少都会用的一个交互，这种交互也常见于 PC、H5，可以说是一种通用性很强的前端交互体验，相比较来说京东首页的嵌套滑动吸顶效果是各个类似效果中体验比较好的一个，因为在嵌套布局中滑动连贯性处理得非常好，今天我们就来实现同样的交互效果。</p>
+<h3 id="这篇文章我会讲些什么"><a href="#这篇文章我会讲些什么" class="headerlink" title="这篇文章我会讲些什么"></a>这篇文章我会讲些什么</h3><ul>
+<li>对于吸附效果实现的思路</li>
+<li>3 个版本的 NestedScrollingParent、NestedScrollingChild 简单介绍</li>
+<li>嵌套组件滑动连贯性（一致性）的处理（事件分发、Fling 等）</li>
+<li>交互的优化问题</li>
+</ul>
+<p>首先，先看一下我们实现的效果图：</p>
+<p><img src="/images/nested_live.gif" width=220></p>
+<p>这里只介绍我们实现过程中的思路，以及部分代码，源码请查看 <a href="https://github.com/solartcc/NestedCeilingEffect">NestedCeilingEffect</a>，欢迎建议、Issues、Star</p>
+<h2 id="1、实现滑动吸顶效果的简单分析"><a href="#1、实现滑动吸顶效果的简单分析" class="headerlink" title="1、实现滑动吸顶效果的简单分析"></a>1、实现滑动吸顶效果的简单分析</h2><p>对于吸顶效果，首先我们要先创造出 <code>“顶”</code> 来，那么如何创造 <code>“顶”</code> 呢？常见的实现方式有很多，比如：</p>
+<ul>
+<li>通过两个相同的顶部控件显示或隐藏来实现</li>
+<li>通过动态 layout 顶部控件来实现</li>
+<li>通过重写 ItemDecoration 来实现</li>
+<li>通过 CoordinatorLayout 协调子布局来实现</li>
+</ul>
+<p>这些方式或多或少在某些方面有一些场景上的限制，这次我们采用另外一种方式来实现 <code>“顶”</code> 的效果，这里先卖一个关子。</p></div><a href="/2020/07/17/nested_ceiling_effect/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2020/07/02/trie_queue/" class="post-title-link">前缀树 + 队列处理通配符查找</a></h2><div class="post-info">Jul 2, 2020</div><div class="post-content"></div><a href="/2020/07/02/trie_queue/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2020/06/16/understand_rxjava2/" class="post-title-link">两张图彻底理解 RxJava2 的核心原理</a></h2><div class="post-info">Jun 16, 2020</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">blue</a></p>
 <p>v 信号: <code>Mojitok8275</code></p>
 <blockquote>
 <p>版权声明：本文图文为博主原创，转载请注明出处。</p>
@@ -58,16 +80,4 @@
 <p>版权声明：本文图文为博主原创，转载请注明出处。</p>
 </blockquote>
 <h2 id="1、概述"><a href="#1、概述" class="headerlink" title="1、概述"></a>1、概述</h2><p>对于插件化框架 <code>Hook</code> 机制是一个核心，那到底 <code>Hook</code> 是什么呢？怎么去理解插件化中的 <code>Hook</code> 呢？在我看来插件化中的 <code>Hook</code> 机制就是通过<code>反射注入</code>和<code>动态代理</code>来实现的。</p>
-<p>先来说说何为<code>反射注入</code>，大家都知道依赖注入，其实反射注入算是依赖注入的一种，顾名思义，通过反射的方式将依赖对象注入目标对象。举个例子，想要替换掉 <code>ActivityThread</code> 中的 <code>mInstrumentation</code>：</p></div><a href="/2016/11/25/va_hook/" class="read-more">...阅读全文</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/2016/11/16/plugin_classloader/" class="post-title-link">插件化中 Classloader 的加载 dex 分析</a></h2><div class="post-info">Nov 16, 2016</div><div class="post-content"><p>作者：<a href="mailto://imilko7@gmail.com">blue</a></p>
-<blockquote>
-<p>版权声明：本文图文为博主原创，转载请注明出处。</p>
-</blockquote>
-<h2 id="1、Java-类加载器"><a href="#1、Java-类加载器" class="headerlink" title="1、Java 类加载器"></a>1、Java 类加载器</h2><p>提到 Android 插件化，一个基础的知识点就是 Java 的类加载机制。这部分知识请参考<a href="https://www.ibm.com/developerworks/cn/java/j-lo-classloader/">深入探讨 Java 类加载器</a>，以下摘录部分内容。</p>
-<h4 id="1-1-类加载器的树状组织结构"><a href="#1-1-类加载器的树状组织结构" class="headerlink" title="1.1 类加载器的树状组织结构"></a>1.1 类加载器的树状组织结构</h4><p>Java 中的类加载器大致可以分成两类，一类是系统提供的，另外一类则是由 Java 应用开发人员编写的。系统提供的类加载器主要有下面三个：</p>
-<ul>
-<li>引导类加载器（bootstrap class loader）：它用来加载 Java 的核心库，是用原生代码来实现的，并不继承自 <code>java.lang.ClassLoader</code>。</li>
-</ul>
-<ul>
-<li>扩展类加载器（extensions class loader）：它用来加载 Java 的扩展库。Java 虚拟机的实现会提供一个扩展库目录。该类加载器在此目录里面查找并加载 Java 类。</li>
-<li>系统类加载器（system class loader）：它根据 Java 应用的类路径（CLASSPATH）来加载 Java 类。一般来说，Java 应用的类都是由它来完成加载的。可以通过 <code>ClassLoader.getSystemClassLoader()</code>来获取它。</li>
-</ul></div><a href="/2016/11/16/plugin_classloader/" class="read-more">...阅读全文</a></article></li></ul></section><footer><div class="paginator"><a href="/page/2/" class="next">下一页</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>
+<p>先来说说何为<code>反射注入</code>，大家都知道依赖注入，其实反射注入算是依赖注入的一种，顾名思义，通过反射的方式将依赖对象注入目标对象。举个例子，想要替换掉 <code>ActivityThread</code> 中的 <code>mInstrumentation</code>：</p></div><a href="/2016/11/25/va_hook/" class="read-more">...阅读全文</a></article></li></ul></section><footer><div class="paginator"><a href="/page/2/" class="next">下一页</a></div><div class="copyright"><p>© 2015 - 2020 <a href="http://solart.cc">solart</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-51018462-1",'auto');ga('send','pageview');</script></body></html>
